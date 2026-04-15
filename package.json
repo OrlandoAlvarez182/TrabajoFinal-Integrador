@@ -1,0 +1,20 @@
+{
+  "name": "turnos",
+  "version": "1.0.0",
+  "description": "gestion de turnos medico",
+  "homepage": "https://github.com/OrlandoAlvarez182/TrabajoFinal-Integrador#readme",
+  "bugs": {
+    "url": "https://github.com/OrlandoAlvarez182/TrabajoFinal-Integrador/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrlandoAlvarez182/TrabajoFinal-Integrador.git"
+  },
+  "license": "ISC",
+  "author": "prog3",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
