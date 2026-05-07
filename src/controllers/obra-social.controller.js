@@ -49,4 +49,26 @@ export default class ObraSocialController {
             });
         }
     }
+   
+    
+    create = async (req, res) => {
+        try {
+            
+            const id = await this.obraSocialService.addObraSocial(req.body);
+            
+            
+            res.status(201).json({ 
+                exito: true, 
+                mensaje: "Obra Social creada con éxito",
+                datos: { id } 
+            }); 
+        } catch (error) {
+             
+            res.status(500).json({ 
+                exito: false, 
+                mensaje: "Error al crear la obra social",
+                error: error.message 
+            });
+        }
+    };
 }
