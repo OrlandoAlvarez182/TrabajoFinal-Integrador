@@ -14,4 +14,24 @@ export default class ObraSocial {
         // Retornamos el primer (y único) resultado
         return os[0];
     }
+
+    insertar = async (datos) => {
+        
+        const query = `
+            INSERT INTO obras_sociales 
+            (nombre, descripcion, porcentaje_descuento, es_particular, activo) 
+            VALUES (?, ?, ?, ?, ?)
+        `;
+        
+        const [result] = await pool.query(query, [
+            datos.nombre,
+            datos.descripcion || '',
+            datos.porcentaje_descuento || 0,
+            datos.es_particular || 0,
+            1  
+        ]);
+
+        // Retornamos el ID autogenerado para confirmar la creación
+        return result.insertId;
+    }
 }
