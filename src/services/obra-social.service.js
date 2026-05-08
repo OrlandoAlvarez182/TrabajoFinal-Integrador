@@ -17,8 +17,8 @@ export default class ObraSocialService {
         return resultado;
     }
 
-    async editarObraSocial(id, datos) {
-        const resultado = await this.obraSocial.actualizar(id, datos);
+    async listarObrasSociales() {
+        const resultado = await this.obraSocial.listar();
         return resultado;
     }
 }
