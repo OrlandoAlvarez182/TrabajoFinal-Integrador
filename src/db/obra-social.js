@@ -34,4 +34,14 @@ export default class ObraSocial {
         // Retornamos el ID autogenerado para confirmar la creación
         return result.insertId;
     }
+
+    actualizar = async (datos)=> {
+        const query = `
+            UPDATE obras_sociales SET nombre = ?, descripcion = ?, porcentaje_descuento = ?, es_particular = ?, activo = 1,
+        `;
+        const [result] = await pool.execute(query,[datos.nombre, datos.descripcion, datos.porcentaje_descuento, datos.es_particular]);
+
+        return result;
+        
+    }
 }

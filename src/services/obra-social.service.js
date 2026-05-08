@@ -16,4 +16,9 @@ export default class ObraSocialService {
         const resultado = await this.obraSocial.insertar(datos);
         return resultado;
     }
+
+    async editarObraSocial(datos) {
+        const resultado = await this.obraSocial.actualizar(datos);
+        return resultado;
+    }
 }

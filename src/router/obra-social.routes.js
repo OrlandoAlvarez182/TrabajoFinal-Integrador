@@ -7,5 +7,6 @@ import ObraSocialController from '../controllers/obra-social.controller.js';
 
  obraSocialRouter.get('/:id', OScontroller.obraSocialPorID);
  obraSocialRouter.post('/', OScontroller.create);
+ obraSocialRouter.put('/:id', OScontroller.obraSocialActualizar);
 
  export default obraSocialRouter;

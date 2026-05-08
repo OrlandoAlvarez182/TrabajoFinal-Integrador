@@ -79,4 +79,33 @@ export default class ObraSocialController {
             });
         }
     };
+
+    obraSocialActualizar = async (req, res) => {
+        try {
+            const { id } = req.params;
+            const idNumerico = parseInt(id);
+
+            if (isNaN(idNumerico) || idNumerico <= 0) {
+                return res.status(400).json({
+                    exito: false,
+                    mensaje: "El ID proporcionado debe ser un número entero válido y mayor a cero",
+                    datos: null
+                });
+            }
+            const OS = await this.obraSocialService.editarObraSocial(req.body);
+
+            return res.status(201).json({ 
+                exito: true, 
+                mensaje: "Obra Social actualizada con éxito",
+                datos: OS
+            }); 
+        } catch (error) {
+            console.error(`Error en update: ${error.message}`);
+            return res.status(500).json({ 
+                exito: false, 
+                mensaje: "Error al actualizar la obra social",
+                error: error.message 
+            });
+        }
+    }
 }
