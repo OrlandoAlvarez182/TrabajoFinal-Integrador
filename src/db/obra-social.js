@@ -50,4 +50,13 @@ export default class ObraSocial {
 
 
     }
+
+    eliminar = async (id) => {
+        const [result] = await pool.query(
+            "UPDATE obras_sociales SET activo = 0 WHERE id_obra_social = ? AND activo = 1",
+            [id]
+        )
+        return result
+    }
+
 }
