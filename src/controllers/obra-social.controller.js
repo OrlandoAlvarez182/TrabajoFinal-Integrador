@@ -79,4 +79,23 @@ export default class ObraSocialController {
             });
         }
     };
+
+    obtenerTodas = async (req,res) => {
+        try {
+            const obraSociales = await this.obraSocialService.listarObrasSociales();
+            return res.status(200).json({
+                    exito: true,
+                    mensaje: "Obra Sociales encontradas",
+                    datos: obraSociales
+                });
+
+        } catch (error) {
+            console.log(error)
+            return res.status(404).json({
+                    exito: false,
+                    mensaje: "Obra Sociales no encontradas",
+                    datos: null
+                });
+        }
+    }
 }

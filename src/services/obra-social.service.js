@@ -16,4 +16,9 @@ export default class ObraSocialService {
         const resultado = await this.obraSocial.insertar(datos);
         return resultado;
     }
+
+    async listarObrasSociales() {
+        const resultado = await this.obraSocial.listar();
+        return resultado;
+    }
 }

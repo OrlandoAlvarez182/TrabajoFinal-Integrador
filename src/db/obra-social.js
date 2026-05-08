@@ -34,4 +34,10 @@ export default class ObraSocial {
         // Retornamos el ID autogenerado para confirmar la creación
         return result.insertId;
     }
+
+    listar = async () => {
+            const sql = "SELECT * FROM obras_sociales WHERE activo = 1";
+            const [obras_sociales, fields] = await pool.query(sql);
+            return obras_sociales;
+    }
 }
