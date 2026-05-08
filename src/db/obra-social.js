@@ -35,13 +35,15 @@ export default class ObraSocial {
         return result.insertId;
     }
 
-    actualizar = async (datos)=> {
+
+    //update
+    actualizar = async (id_obra_social, datos)=> {
         const query = `
-            UPDATE obras_sociales SET nombre = ?, descripcion = ?, porcentaje_descuento = ?, es_particular = ?, activo = 1,
-        `;
-        const [result] = await pool.execute(query,[datos.nombre, datos.descripcion, datos.porcentaje_descuento, datos.es_particular]);
+            UPDATE obras_sociales SET nombre = ?, descripcion = ?, porcentaje_descuento = ?, es_particular = ?, activo = 1 WHERE id_obra_social = ? `;
+        const [result] = await pool.execute(query,[datos.nombre, datos.descripcion, datos.porcentaje_descuento, datos.es_particular, id_obra_social]);
 
         return result;
+
         
     }
 }

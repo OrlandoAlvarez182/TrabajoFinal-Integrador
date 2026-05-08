@@ -80,6 +80,7 @@ export default class ObraSocialController {
         }
     };
 
+    //update
     obraSocialActualizar = async (req, res) => {
         try {
             const { id } = req.params;
@@ -92,7 +93,17 @@ export default class ObraSocialController {
                     datos: null
                 });
             }
-            const OS = await this.obraSocialService.editarObraSocial(req.body);
+
+            const resultado = this.obraSocialService.buscarPorID(id)
+            if (!resultado){
+                return res.status(404).json({ 
+                exito: false, 
+                mensaje: "Obra Social no encontrada",
+                datos: null
+            }); 
+            }
+
+            const OS = await this.obraSocialService.editarObraSocial(id, req.body);
 
             return res.status(201).json({ 
                 exito: true, 
@@ -107,5 +118,6 @@ export default class ObraSocialController {
                 error: error.message 
             });
         }
+
     }
 }
