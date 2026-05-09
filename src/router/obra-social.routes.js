@@ -1,10 +1,14 @@
-import {Router} from 'express';
-import ObraSocialController from '../controllers/obra-social.controller.js'; 
-import { validarObraSocial } from '../middleware/obrasocial.validator.js';
+import {
+    Router
+} from 'express';
+import ObraSocialController from '../controllers/obra-social.controller.js';
+import {
+    validarObraSocial
+} from '../middleware/obrasocial.validator.js';
 
- const obraSocialRouter = Router();
+const obraSocialRouter = Router();
 
- const OScontroller = new ObraSocialController();
+const OScontroller = new ObraSocialController();
 
  obraSocialRouter.get('/', OScontroller.obtenerTodas);
  obraSocialRouter.get('/:id', OScontroller.obraSocialPorID);
@@ -13,4 +17,4 @@ import { validarObraSocial } from '../middleware/obrasocial.validator.js';
  obraSocialRouter.delete('/:id', OScontroller.borrarObraSocial);
 
 
- export default obraSocialRouter;
+export default obraSocialRouter;
