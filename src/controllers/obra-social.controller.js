@@ -81,6 +81,7 @@ export default class ObraSocialController {
                 id
             } = req.params;
             const idNumerico = parseInt(id);
+            const datosNuevos = req.body;
 
             if (isNaN(idNumerico) || idNumerico <= 0) {
                 return res.status(400).json({
@@ -90,8 +91,8 @@ export default class ObraSocialController {
                 });
             }
 
-            const resultado = await this.obraSocialService.buscarPorID(id)
-            if (!resultado) {
+            const osActual = await this.obraSocialService.buscarPorID(id)
+            if (!osActual) {
                 return res.status(404).json({
                     exito: false,
                     mensaje: "Obra Social no encontrada",
@@ -99,12 +100,20 @@ export default class ObraSocialController {
                 });
             }
 
-            const OS = await this.obraSocialService.editarObraSocial(id, req.body);
+            const osFinal = {
+                nombre: datosNuevos.nombre || osActual.nombre,
+                descripcion: datosNuevos.descripcion || osActual.descripcion,
+                porcentaje_descuento: datosNuevos.porcentaje_descuento ?? osActual.porcentaje_descuento,
+                es_particular: datosNuevos.es_particular ?? osActual.es_particular,
+                activo: datosNuevos.activo ?? osActual.activo
+            };
+
+            const OS = await this.obraSocialService.editarObraSocial(id, osFinal);
 
             return res.status(201).json({
                 exito: true,
                 mensaje: "Obra Social actualizada con éxito",
-                datos: OS
+                datos: osFinal
             });
         } catch (error) {
             console.error(`Error en update: ${error.message}`);
