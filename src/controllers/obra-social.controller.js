@@ -116,4 +116,47 @@ export default class ObraSocialController {
         }
 
     }
+
+
+    borrarObraSocial = async (req, res) => {
+        try {
+            const id = parseInt(req.params.id)
+            if (isNaN(id) || id <= 0) {
+                return res.status(400).json({
+                    exito: false,
+                    mensaje: "El parámetro debe ser un entero válido"
+                })
+        }
+
+            const obraSocial = await this.obraSocialService.buscarPorID(id)
+            if (!obraSocial) {
+                return res.status(404).json({
+                    exito: false,
+                    mensaje: "Obra Social no encontrada"
+                })
+            }
+
+            const result = await this.obraSocialService.eliminarObraSocial(id)
+            console.log("📊 Resultado del service:", result)
+
+                if (result.affectedRows > 0) {
+                    return res.status(200).json({
+                        exito: true,
+                        mensaje: "Obra Social eliminada"
+                    })
+                }
+
+                return res.status(404).json({
+                    exito: false,
+                    mensaje: "Obra Social no encontrada"
+                })
+
+        } catch (error) {
+            console.error(error)
+            return res.status(500).json({
+                exito: false,
+                mensaje: "Error interno."
+            })
+        }
+    }
 }

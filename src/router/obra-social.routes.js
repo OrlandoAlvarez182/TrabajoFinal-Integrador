@@ -10,5 +10,7 @@ import { validarObraSocial } from '../middleware/obrasocial.validator.js';
  obraSocialRouter.get('/:id', OScontroller.obraSocialPorID);
  obraSocialRouter.post('/', OScontroller.create);
  obraSocialRouter.put('/:id', validarObraSocial, OScontroller.obraSocialActualizar);
+ obraSocialRouter.delete('/:id', OScontroller.borrarObraSocial);
+
 
  export default obraSocialRouter;

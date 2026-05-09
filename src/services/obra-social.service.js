@@ -26,4 +26,8 @@ export default class ObraSocialService {
         const resultado = await this.obraSocial.actualizar(id, datos);
         return resultado;
     }
+
+    async eliminarObraSocial(id) {
+        return await this.obraSocial.eliminar(id)
+    }
 }
