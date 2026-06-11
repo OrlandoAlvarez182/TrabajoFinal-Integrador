@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: Módulo de Obras Sociales
+  version: 1.0.0
+paths:
+  /obraSociales:
+    get:
+      summary: Obtener todas las obras sociales
+      tags: [Obras Sociales]
+      responses:
+        200:
+          description: Lista de obras sociales recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                  datos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nombre:
+                          type: string
+
+    post:
+      summary: Crear una nueva obra social
+      tags: [Obras Sociales]
+      responses:
+        201:
+          description: Obra Social creada correctamente
+
+  /obraSociales/{id}:
+    put:
+      summary: Actualizar una obra social por ID
+      tags: [Obras Sociales]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID de la obra social
+      responses:
+        200:
+          description: Obra social actualizada con éxito

@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Módulo de Autenticación
+  version: 1.0.0
+paths:
+  /auth/login:
+    post:
+      summary: Iniciar sesión de usuario
+      tags: [Autenticación]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - contrasenia
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: lopmar@correo.com
+                contrasenia:
+                  type: string
+                  example: "123456"
+      responses:
+        200:
+          description: Autenticación exitosa. Devuelve el token JWT.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Inicio de sesión exitoso"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5c..."
+                  datos:
+                    type: object
+                    properties:
+                      nombreCompleto:
+                        type: string
+                        example: "Juan Pérez"
+                      rol:
+                        type: integer
+                        example: 1
+        401:
+          description: Credenciales incorrectas o usuario inactivo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: false
+                  mensaje:
+                    type: string
+                    example: "Credenciales incorrectas o usuario inexistente"
