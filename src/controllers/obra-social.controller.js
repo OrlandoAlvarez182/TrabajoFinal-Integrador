@@ -7,7 +7,7 @@ export default class ObraSocialController {
     create = async (req, res) => {
         try {
 
-            const id = await this.obraSocialService.addObraSocial(req.body);
+            const id = await this.obraSocialService.addObraSocial(req.dto);
 
             return res.status(201).json({
                 exito: true,
