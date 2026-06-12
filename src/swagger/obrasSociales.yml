@@ -28,16 +28,83 @@ paths:
                           type: string
 
     post:
-      summary: Crear una nueva obra social
+      summary: Crear una nueva obra social (Solo Admin)
       tags: [Obras Sociales]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nombre
+                - es_particular
+              properties:
+                nombre:
+                  type: string
+                  example: "OSDE"
+                descripcion:
+                  type: string
+                  example: "Plan 210 y superiores"
+                porcentaje_descuento:
+                  type: number
+                  example: 40.5
+                es_particular:
+                  type: integer
+                  example: 0
       responses:
         201:
           description: Obra Social creada correctamente
+        401:
+          description: Token inválido o expirado
+        403:
+          description: No tienes permisos suficientes (Requiere Rol 3)
 
   /obraSociales/{id}:
     put:
-      summary: Actualizar una obra social por ID
+      summary: Actualizar una obra social por ID (Solo Admin)
       tags: [Obras Sociales]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID de la obra social
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "OSDE MODIFICADO"
+                descripcion:
+                  type: string
+                  example: "Plan actualizado"
+                porcentaje_descuento:
+                  type: number
+                  example: 50.0
+                es_particular:
+                  type: integer
+                  example: 0
+      responses:
+        200:
+          description: Obra social actualizada con éxito
+        403:
+          description: No tienes permisos suficientes
+    
+    delete:
+      summary: Eliminar una obra social por ID (Solo Admin)
+      tags: [Obras Sociales]
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id
@@ -47,4 +114,10 @@ paths:
           description: ID de la obra social
       responses:
         200:
-          description: Obra social actualizada con éxito
+          description: Obra social eliminada con éxito
+        401:
+          description: Token inválido o expirado
+        403:
+          description: No tienes permisos suficientes (Requiere Rol 3)
+        404:
+          description: Obra Social no encontrada
