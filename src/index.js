@@ -1,6 +1,5 @@
 import express from "express";
 import swaggerUi from 'swagger-ui-express';
-import swaggerJsdoc from 'swagger-jsdoc';
 import cors from 'cors';
 import morgan from 'morgan';
 import fs from 'fs';
@@ -8,6 +7,9 @@ import path from 'path';
 import {
     fileURLToPath
 } from 'url';
+import {
+    especificacionesSwagger
+} from "./swagger/swagger.config.js";
 import obraSocialRouter from "./router/obra-social.routes.js";
 import authRouter from "./router/auth.routes.js";
 
@@ -27,23 +29,6 @@ app.use(morgan('combined', {
     stream: log
 }));
 
-const opcionesSwagger = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'API de Clínica Médica - UNER 2026',
-            version: '1.0.0',
-            description: 'Documentación de la API para el Trabajo Final Integrador',
-        },
-        servers: [{
-            url: 'http://localhost:3000/api/v1',
-            description: 'Servidor Local'
-        }]
-    },
-    apis: ["./src/swagger/*.yml"]
-};
-
-const especificacionesSwagger = swaggerJsdoc(opcionesSwagger);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(especificacionesSwagger));
 
 app.use('/api/v1/obraSociales', obraSocialRouter);

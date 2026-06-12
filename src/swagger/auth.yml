@@ -20,7 +20,7 @@ paths:
                 email:
                   type: string
                   format: email
-                  example: lopmar@correo.com
+                  example: gomsil@correo.com
                 contrasenia:
                   type: string
                   example: "123456"

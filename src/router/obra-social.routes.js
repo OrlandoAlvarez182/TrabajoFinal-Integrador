@@ -28,8 +28,21 @@ obraSocialRouter.post(
     OScontroller.create
 );
 
-obraSocialRouter.put('/:id', validarObraSocial, OScontroller.obraSocialActualizar);
-obraSocialRouter.delete('/:id', OScontroller.borrarObraSocial);
+obraSocialRouter.put(
+    '/:id', 
+    validarObraSocial, 
+    verificarToken, 
+    permitirRoles(3), 
+    transformarDTO.obrasSocialesActualizarDTO, 
+    OScontroller.obraSocialActualizar
+);
+
+obraSocialRouter.delete(
+    '/:id', 
+    verificarToken, 
+    permitirRoles(3), 
+    OScontroller.borrarObraSocial
+);
 
 
 export default obraSocialRouter;

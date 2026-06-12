@@ -81,7 +81,7 @@ export default class ObraSocialController {
                 id
             } = req.params;
             const idNumerico = parseInt(id);
-            const datosNuevos = req.body;
+            const datosNuevos = req.dto;
 
             if (isNaN(idNumerico) || idNumerico <= 0) {
                 return res.status(400).json({
