@@ -1,4 +1,5 @@
-import pool from "../db/conexion.js";
+// ✅ DEBE QUEDAR ASÍ (Con llaves):
+import { pool } from "./conexion.js";
 
 export default class ObraSocial {
 
