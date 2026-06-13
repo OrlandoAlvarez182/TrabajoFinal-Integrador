@@ -32,6 +32,27 @@ export default class TransformarDTO {
             es_particular
         };
 
+        especialidadesCrearDTO = async (req, res, next) => {
+        const {
+            nombre,
+        } = req.body;
+
+        req.dto = {
+            nombre: nombre ? nombre.trim().toUpperCase() : null,
+        };
+
         next();
     }
+
+    especialidadesActualizarDTO = async (req, res, next) => {
+        const {
+            nombre,
+        } = req.body;
+
+        req.dto = {
+            nombre: nombre ? nombre.trim().toUpperCase() : null,
+        };
+        next();
+    }
+}
 }
