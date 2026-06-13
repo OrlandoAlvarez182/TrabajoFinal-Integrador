@@ -32,7 +32,10 @@ export default class TransformarDTO {
             es_particular
         };
 
-        especialidadesCrearDTO = async (req, res, next) => {
+        next();
+    }
+
+    especialidadesCrearDTO = async (req, res, next) => {
         const {
             nombre,
         } = req.body;
@@ -54,5 +57,4 @@ export default class TransformarDTO {
         };
         next();
     }
-}
 }
