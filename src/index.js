@@ -13,7 +13,7 @@ import {
 import obraSocialRouter from "./router/obra-social.routes.js";
 import medicosRoutes from './router/medicos.routes.js';
 import authRouter from "./router/auth.routes.js";
-import especialidadesRouter from "./router/especialidades.router.js";
+import especialidadesRouter from './router/especialidades.routes.js';
 
 const __filename = fileURLToPath(
     import.meta.url);
