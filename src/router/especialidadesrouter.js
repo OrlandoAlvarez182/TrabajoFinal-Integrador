@@ -1,9 +1,10 @@
-import { check, ExpressValidator, param } from "express-validator";
-import { check, param } from "express-validator";
-import {validarcampos} from '../middleware/validarcampos.js';
+import {
+    Router
+} from 'express';
+import { validarEspecialidades } from '../middleware/especialidades.validator.js';
 import EspecialidadesControlador from "../controllers/especialidadescontrolador.js";
 
-const especialidadesrouter = ExpressValidator.router();
+const especialidadesrouter = Router();
 
 const especialidadescontrolador = new EspecialidadesControlador();
 
@@ -17,22 +18,11 @@ especialidadesrouter.get('/:id_especialidad',
 especialidadescontrolador.buscarPorId)
 
 especialidadesrouter.post('/',
-    [
-        check('nombre')
-        .notEmpty().withMessage('El nombre es obligatorio.')
-        .isLength({max:120}).withMessage('El nombre debe ser mayor a 120 caracteres.'),
-        validarcampos
-    ],
+validarEspecialidades,
 especialidadescontrolador.crear);
 
 especialidadesrouter.put('/:id_especialidad',
-    [
-        check('nombre')
-        .notEmpty().withMessage('El nombre es obligatoio.')
-        .isLength({max:120}).withMessage('El nombre no debe ser mayor a 120 carateres.'),
-        param('id_especialidad', 'El parámetro debe ser entero').isInt(),
-        validarcampos
-    ],
+validarEspecialidades,
 especialidadescontrolador.modificar);
 
 especialidadesrouter.delete('/:id_especialidad',
@@ -42,4 +32,4 @@ especialidadesrouter.delete('/:id_especialidad',
     ],
 especialidadescontrolador.eliminar);
 
-export default ( Router );
+export default especialidadesRouter;
