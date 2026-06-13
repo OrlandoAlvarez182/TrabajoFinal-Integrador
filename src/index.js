@@ -12,6 +12,7 @@ import {
 } from "./swagger/swagger.config.js";
 import obraSocialRouter from "./router/obra-social.routes.js";
 import authRouter from "./router/auth.routes.js";
+import especialidadesRouter from "./router/especialidades.router.js";
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -32,6 +33,8 @@ app.use(morgan('combined', {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(especificacionesSwagger));
 
 app.use('/api/v1/obraSociales', obraSocialRouter);
+app.use('/api/v1/especialidades', especialidadesRouter);
+
 
 app.use('/api/v1/auth', authRouter);
 
