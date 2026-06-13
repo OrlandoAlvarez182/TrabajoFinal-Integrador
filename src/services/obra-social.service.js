@@ -12,7 +12,6 @@ export default class ObraSocialService {
     }
 
     async addObraSocial(datos) {
-        if (!datos.nombre) throw new Error('El nombre es obligatorio');
         const resultado = await this.obraSocial.insertar(datos);
         return resultado;
     }
