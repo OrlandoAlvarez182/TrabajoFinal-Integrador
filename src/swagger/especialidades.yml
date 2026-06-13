@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: Módulo de especialidades
+  version: 1.0.0
+paths:
+  /especialidades:
+    get:
+      summary: Obtener todas las especialidades
+      tags: [especialidades]
+      responses:
+        200:
+          description: Lista de especialidades recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                  datos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nombre:
+                          type: string
+
+    post:
+      summary: Crear una nueva especialidad (Solo Admin)
+      tags: [especialidades]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nombre
+              properties:
+                nombre:
+                  type: string
+                  example: "Odondotología"
+      responses:
+        201:
+          description: especialidad creada correctamente
+        401:
+          description: Token inválido o expirado
+        403:
+          description: No tienes permisos suficientes (Requiere Rol 3)
+
+  /especialidades/{id}:
+    put:
+      summary: Actualizar una especialidad por ID (Solo Admin)
+      tags: [especialidades]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID de la especialidad
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "OSDE MODIFICADO"
+      responses:
+        200:
+          description: especialidades actualizada con éxito
+        403:
+          description: No tienes permisos suficientes
+    
+    delete:
+      summary: Eliminar una especialidad por ID (Solo Admin)
+      tags: [especialidades]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID de la especialidad
+      responses:
+        200:
+          description: especialidad eliminada con éxito
+        401:
+          description: Token inválido o expirado
+        403:
+          description: No tienes permisos suficientes (Requiere Rol 3)
+        404:
+          description: especialidad no encontrada
