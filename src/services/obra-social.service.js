@@ -12,13 +12,21 @@ export default class ObraSocialService {
     }
 
     async addObraSocial(datos) {
-        if (!datos.nombre) throw new Error('El nombre es obligatorio');
         const resultado = await this.obraSocial.insertar(datos);
+        return resultado;
+    }
+
+    async listarObrasSociales() {
+        const resultado = await this.obraSocial.listar();
         return resultado;
     }
 
     async editarObraSocial(id, datos) {
         const resultado = await this.obraSocial.actualizar(id, datos);
         return resultado;
+    }
+
+    async eliminarObraSocial(id) {
+        return await this.obraSocial.eliminar(id)
     }
 }
