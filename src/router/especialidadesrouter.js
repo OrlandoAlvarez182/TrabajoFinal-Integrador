@@ -3,20 +3,20 @@ import { check, param } from "express-validator";
 import {validarcampos} from '../middleware/validarcampos.js';
 import EspecialidadesControlador from "../controllers/especialidadescontrolador.js";
 
-const router = ExpressValidator.router();
+const especialidadesrouter = ExpressValidator.router();
 
 const especialidadescontrolador = new EspecialidadesControlador();
 
-router.get('/:id', especialidadescontrolador.buscarTodas);
+especialidadesrouter.get('/:id', especialidadescontrolador.buscarTodas);
 
-router.get('/:id_especialidad',
+especialidadesrouter.get('/:id_especialidad',
 [
     param('id_especialidad', 'El parámetro debe ser entero').isInt(),
     validarcampos
 ],
 especialidadescontrolador.buscarPorId)
 
-router.post('/',
+especialidadesrouter.post('/',
     [
         check('nombre')
         .notEmpty().withMessage('El nombre es obligatorio.')
@@ -25,7 +25,7 @@ router.post('/',
     ],
 especialidadescontrolador.crear);
 
-router.put('/:id_especialidad',
+especialidadesrouter.put('/:id_especialidad',
     [
         check('nombre')
         .notEmpty().withMessage('El nombre es obligatoio.')
@@ -35,11 +35,11 @@ router.put('/:id_especialidad',
     ],
 especialidadescontrolador.modificar);
 
-router.delete('/:id_especialidad',
+especialidadesrouter.delete('/:id_especialidad',
     [
         param('id_especialidad', 'El parámetro debe ser entero').isInt(),
         validarcampos
     ],
 especialidadescontrolador.eliminar);
 
-export ( Router );
+export default ( Router );
