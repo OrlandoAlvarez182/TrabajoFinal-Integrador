@@ -1,0 +1,20 @@
+import { param, validationResult } from 'express-validator';
+
+export const validarTurnoAtendido = [
+    param('id')
+        .isInt({ min: 1 })
+        .withMessage('El ID del turno debe ser un número entero válido mayor a 0.'),
+    
+    
+    (req, res, next) => {
+        const errores = validationResult(req);
+        if (!errores.isEmpty()) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: "Error de validación en los datos de entrada.",
+                datos: errores.array()
+            });
+        }
+        next();
+    }
+];
