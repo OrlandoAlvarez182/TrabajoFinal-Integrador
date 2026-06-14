@@ -18,24 +18,28 @@ export default class Especialidades {
 
     crear = async (especialidad) => {
 
-        const {nombre} = especialidad;
+        const {
+            nombre
+        } = especialidad;
         const sql = 'INSERT INTO especialidades (nombre) VALUES (?)';
         const [result] = await pool.execute(sql, [nombre]);
 
-        if (result.affectedRows === 0){
+        if (result.affectedRows === 0) {
             return null;
         }
 
         return result.insertId;
     }
-}
+
 
     modificar = async (id_especialidad, especialidad) => {
-        const {nombre} = especialidad;
+        const {
+            nombre
+        } = especialidad;
         const sql = 'UPDATE especialidades SET nombre = ? WHERE id_especialidad = ?';
         const [result] = await pool.execute(sql, [nombre, id_especialidad]);
 
-        if (result.affectedRows === 0){
+        if (result.affectedRows === 0) {
             return null;
         }
 
@@ -45,11 +49,11 @@ export default class Especialidades {
     eliminar = async (id_especialidad) => {
         const sql = 'UPDATE especialidades SET activo = 0 WHERE id_especialidad = ?';
         const [result] = await pool.execute(sql, [id_especialidad]);
-        if (result.affectedRows === 0){
-        return null;
+        if (result.affectedRows === 0) {
+            return null;
         }
         return true;
     }
 
 
-
+}

@@ -76,3 +76,6 @@
 ::1 - - [12/Jun/2026:02:08:14 +0000] "DELETE /api/v1/obraSociales/7 HTTP/1.1" 200 48 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0"
 ::1 - - [12/Jun/2026:02:09:44 +0000] "DELETE /api/v1/obraSociales/17 HTTP/1.1" 404 53 "http://localhost:3000/api-docs/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0"
 ::1 - - [12/Jun/2026:02:15:42 +0000] "GET /api-docs/ HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36 Edg/149.0.0.0"
+::1 - - [13/Jun/2026:15:08:17 +0000] "GET /api/v1/especialidades/ HTTP/1.1" 500 42 "-" "bruno-runtime/3.4.2"
+::1 - - [13/Jun/2026:15:11:01 +0000] "GET /api/v1/especialidades/ HTTP/1.1" 500 42 "-" "bruno-runtime/3.4.2"
+::1 - - [13/Jun/2026:15:12:28 +0000] "GET /api/v1/especialidades/ HTTP/1.1" 200 913 "-" "bruno-runtime/3.4.2"

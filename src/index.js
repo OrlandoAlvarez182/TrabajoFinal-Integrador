@@ -16,6 +16,7 @@ import medicosRoutes from './router/medicos.routes.js';
 import authRouter from "./router/auth.routes.js";
 import especialidadesRouter from './router/especialidades.routes.js';
 import turnosRoutes from './router/turnos.routes.js';
+
 const __filename = fileURLToPath(
     import.meta.url);
 const __dirname = path.dirname(__filename);
