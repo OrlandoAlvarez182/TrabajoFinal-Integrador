@@ -1,12 +1,12 @@
-import Especialidades from"../db/especialidades.js"
+import Especialidades from "../db/especialidades.js"
 
 export default class EspecialidadesService {
-    constructor(){
+    constructor() {
         this.especialidades = new Especialidades();
     }
-    
+
     buscarTodas = () => {
-        return this.especialidades.buscarTodas();
+        return this.especialidades.buscarEspecialidades();
     }
 
     buscarPorId = (id_especialidad) => {
@@ -28,7 +28,7 @@ export default class EspecialidadesService {
 
     eliminar = async (id_especialidad) => {
         const existe = await this.especialidades.buscarPorId(id_especialidad);
-        if(existe.length === 0) {
+        if (existe.length === 0) {
             return null;
         }
         return this.especialidades.eliminar(id_especialidad);

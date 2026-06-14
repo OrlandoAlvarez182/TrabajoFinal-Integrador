@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: Módulo de especialidades
+  title: Módulo de Especialidades
   version: 1.0.0
 paths:
   /especialidades:
     get:
       summary: Obtener todas las especialidades
-      tags: [especialidades]
+      tags: [Especialidades]
       responses:
         200:
           description: Lista de especialidades recuperada con éxito
@@ -22,14 +22,16 @@ paths:
                     items:
                       type: object
                       properties:
-                        id:
+                        id_especialidad:
                           type: integer
                         nombre:
                           type: string
+                        activo:
+                          type: integer
 
     post:
       summary: Crear una nueva especialidad (Solo Admin)
-      tags: [especialidades]
+      tags: [Especialidades]
       security:
         - BearerAuth: []
       requestBody:
@@ -43,10 +45,10 @@ paths:
               properties:
                 nombre:
                   type: string
-                  example: "Odondotología"
+                  example: "ODONTOLOGÍA"
       responses:
         201:
-          description: especialidad creada correctamente
+          description: Especialidad creada correctamente
         401:
           description: Token inválido o expirado
         403:
@@ -55,7 +57,7 @@ paths:
   /especialidades/{id}:
     put:
       summary: Actualizar una especialidad por ID (Solo Admin)
-      tags: [especialidades]
+      tags: [Especialidades]
       security:
         - BearerAuth: []
       parameters:
@@ -74,16 +76,21 @@ paths:
               properties:
                 nombre:
                   type: string
-                  example: "OSDE MODIFICADO"
+                  example: "TRAUMATOLOGÍA INFANTIL"
+                activo:
+                  type: integer
+                  example: 1
       responses:
         200:
-          description: especialidades actualizada con éxito
+          description: Especialidad actualizada con éxito
+        401:
+          description: Token inválido o expirado
         403:
           description: No tienes permisos suficientes
-    
+
     delete:
       summary: Eliminar una especialidad por ID (Solo Admin)
-      tags: [especialidades]
+      tags: [Especialidades]
       security:
         - BearerAuth: []
       parameters:
@@ -92,13 +99,13 @@ paths:
           required: true
           schema:
             type: integer
-          description: ID de la especialidad
+          description: ID de la especialidad a dar de baja
       responses:
         200:
-          description: especialidad eliminada con éxito
+          description: Especialidad eliminada con éxito (borrado lógico)
         401:
           description: Token inválido o expirado
         403:
           description: No tienes permisos suficientes (Requiere Rol 3)
         404:
-          description: especialidad no encontrada
+          description: Especialidad no encontrada
