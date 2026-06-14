@@ -1,4 +1,3 @@
-// ✅ DEBE QUEDAR ASÍ (Con llaves):
 import { pool } from "./conexion.js";
 
 export default class ObraSocial {

@@ -32,7 +32,10 @@ export default class TransformarDTO {
             es_particular
         };
 
-        especialidadesCrearDTO = async (req, res, next) => {
+        next();
+    }
+
+    especialidadesCrearDTO = async (req, res, next) => {
         const {
             nombre,
         } = req.body;
@@ -54,5 +57,19 @@ export default class TransformarDTO {
         };
         next();
     }
+     
+    
+    turnoAtendidoDTO = async (req, res, next) => {
+        const { id } = req.params;
+        const { observaciones } = req.body; 
+
+        req.dto = {
+            id_turno_reserva: id ? parseInt(id, 10) : null,
+            observaciones: observaciones ? observaciones.trim() : null // 
+        };
+
+        next();
+    }
 }
-}
+
+
