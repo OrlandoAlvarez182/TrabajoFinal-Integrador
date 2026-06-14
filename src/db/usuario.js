@@ -1,4 +1,4 @@
-import pool from "../db/conexion.js";
+import { pool } from "./conexion.js";
 
 export default class Usuario {
     buscar = async (email, contrasenia) => {

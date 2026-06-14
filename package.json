@@ -32,5 +32,6 @@
     "puppeteer": "^24.43.1",
     "swagger-jsdoc": "^6.3.0",
     "swagger-ui-express": "^5.0.1"
-  }
+  },
+  "keywords": []
 }

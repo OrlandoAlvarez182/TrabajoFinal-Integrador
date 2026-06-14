@@ -5,6 +5,12 @@ export default class TurnosServicio {
         this.turnosModel = new Turnos();
     }
 
+    // 🚀 Corregido: Ahora llama al método real de la DB "obtenerTodosLosTurnos"
+    obtenerTodos = async () => {
+        const turnos = await this.turnosModel.obtenerTodosLosTurnos(); 
+        return turnos;
+    }
+
     atenderTurno = async (id_turno) => {
         const modificado = await this.turnosModel.marcarComoAtendido(id_turno);
         if (!modificado) {
