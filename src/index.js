@@ -18,6 +18,7 @@ import especialidadesRouter from './router/especialidades.router.js';
 import turnosRoutes from './router/turnos.routes.js';
 
 import admRouter from './router/adm.routes.js';
+import usuariosRouter from './router/usuarios.routes.js';
 
 
 const __filename = fileURLToPath(
@@ -42,6 +43,7 @@ app.use('/api/v1/obraSociales', obraSocialRouter);
 app.use('/api/v1/medicos', medicosRoutes);
 app.use('/api/v1/especialidades', especialidadesRouter);
 app.use('/api/v1/turnos', turnosRoutes);
+app.use('/api/v1/usuarios', usuariosRouter);
 app.use('/api/adm', admRouter);
 app.use('/api/v1/auth', authRouter);
 
