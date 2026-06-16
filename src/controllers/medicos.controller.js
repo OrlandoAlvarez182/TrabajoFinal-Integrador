@@ -44,3 +44,17 @@ export const asociarMedicoEspecialidades = async (req, res) => {
         res.status(500).json({ exito: false, mensaje: "Error al asociar especialidades.", datos: error.message });
     }
 };
+
+export const listarTurnosPropios = async (req, res) => {
+    try {
+        const id_medico = req.user.id;
+        const turnos = await medicosService.ObtenerTurnos(id_medico);
+
+        if (!turnos || turnos.length === 0) {
+            return res.status(404).json({mensaje: "no hay turnos programados"});
+        }
+        return res.status(200).json(turnos);
+    } catch (error) {
+        return res.status(500).json({ mensaje: "error interno del servidor"});
+    }
+};
