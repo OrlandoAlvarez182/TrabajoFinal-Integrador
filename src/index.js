@@ -19,7 +19,7 @@ import turnosRoutes from './router/turnos.routes.js';
 
 import admRouter from './router/adm.routes.js';
 import usuariosRouter from './router/usuarios.routes.js';
-
+import pacientesRouter from "./router/pacientes.routes.js";
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -46,6 +46,7 @@ app.use('/api/v1/turnos', turnosRoutes);
 app.use('/api/v1/usuarios', usuariosRouter);
 app.use('/api/adm', admRouter);
 app.use('/api/v1/auth', authRouter);
+app.use("/api/v1", pacientesRouter);
 
 const PUERTO = process.env.PUERTO;
 

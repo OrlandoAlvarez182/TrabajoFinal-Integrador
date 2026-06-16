@@ -91,3 +91,6 @@
 ::1 - - [13/Jun/2026:15:11:01 +0000] "GET /api/v1/especialidades/ HTTP/1.1" 500 42 "-" "bruno-runtime/3.4.2"
 ::1 - - [13/Jun/2026:15:12:28 +0000] "GET /api/v1/especialidades/ HTTP/1.1" 200 913 "-" "bruno-runtime/3.4.2"
 >>>>>>> 174632510fdae290e91003275af0697469d6bfdd
+::1 - - [14/Jun/2026:22:50:10 +0000] "POST /api/v1/medicos/1/especialidades HTTP/1.1" 500 1581 "-" "curl/8.19.0"
+::1 - - [14/Jun/2026:22:50:18 +0000] "POST /api/v1/medicos/1/especialidades HTTP/1.1" 201 79 "-" "curl/8.19.0"
+::1 - - [14/Jun/2026:22:51:25 +0000] "GET /api/v1/medicos/1/especialidades HTTP/1.1" 404 170 "-" "curl/8.19.0"

@@ -32,3 +32,15 @@ export const asociarMedicoObrasSociales = async (req, res) => {
         });
     }
 };
+
+export const asociarMedicoEspecialidades = async (req, res) => {
+    const { id_medico } = req.params;
+    const { especialidades } = req.body;
+
+    try {
+        await medicosServicio.asociarMedicoEspecialidades(id_medico, especialidades);
+        res.status(201).json({ exito: true, mensaje: "Especialidades asociadas correctamente.", datos: null });
+    } catch (error) {
+        res.status(500).json({ exito: false, mensaje: "Error al asociar especialidades.", datos: error.message });
+    }
+};

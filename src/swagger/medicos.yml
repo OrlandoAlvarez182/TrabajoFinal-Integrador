@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: Módulo de Médicos
+  version: 1.0.0
+paths:
+  /medicos:
+    get:
+      summary: Obtener todos los médicos
+      tags: [Medicos]
+      responses:
+        200:
+          description: Lista de médicos recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                  datos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nombre:
+                          type: string
+
+    post:
+      summary: Crear un nuevo médico (Solo Admin)
+      tags: [Medicos]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nombre
+              properties:
+                nombre:
+                  type: string
+                  example: "Mario"
+      responses:
+        201:
+          description: Médico creado correctamente
+        401:
+          description: Token inválido o expirado
+        403:
+          description: No tienes permisos suficientes (Requiere Rol 3)
+
+  /medicos/{id}:
+    put:
+      summary: Actualizar un médico por ID (Solo Admin)
+      tags: [Medicos]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID del médico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "MARIO MODIFICADO"
+      responses:
+        200:
+          description: Médico actualizado con éxito
+        403:
+          description: No tienes permisos suficientes
+    
+    delete:
+      summary: Eliminar un médico por ID (Solo Admin)
+      tags: [Médicos]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID del médico
+      responses:
+        200:
+          description: Médico eliminado con éxito
+        401:
+          description: Token inválido o expirado
+        403:
+          description: No tienes permisos suficientes (Requiere Rol 3)
+        404:
+          description: Médico no encontrado
