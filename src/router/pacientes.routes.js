@@ -1,8 +1,10 @@
 import express from "express";
-import { obtenerInformeTurnosPorPaciente } from "../controllers/pacientes.controller.js";
+import PacientesController from "../controllers/pacientes.controller.js";
 
 const router = express.Router();
 
-router.get("/informe/turnos-paciente", obtenerInformeTurnosPorPaciente);
+const pacientesController = new PacientesController();
+
+router.get("/informe/turnos-paciente", pacientesController.obtenerInformeTurnosPorPaciente);
 
 export default router;

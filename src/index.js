@@ -12,7 +12,7 @@ import {
     especificacionesSwagger
 } from "./swagger/swagger.config.js";
 import obraSocialRouter from "./router/obra-social.routes.js";
-import medicosRoutes from './router/medicos.routes.js';
+import routerMedicos from './router/medicos.routes.js';
 import authRouter from "./router/auth.routes.js";
 import especialidadesRouter from './router/especialidades.routes.js';
 import turnosRoutes from './router/turnos.routes.js';
@@ -40,7 +40,7 @@ app.use(morgan('combined', {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(especificacionesSwagger));
 
 app.use('/api/v1/obraSociales', obraSocialRouter);
-app.use('/api/v1/medicos', medicosRoutes);
+app.use('/api/v1/medicos', routerMedicos);
 app.use('/api/v1/especialidades', especialidadesRouter);
 app.use('/api/v1/turnos', turnosRoutes);
 app.use('/api/v1/usuarios', usuariosRouter);
