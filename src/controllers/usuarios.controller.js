@@ -1,30 +1,99 @@
-import UsuariosService from "../services/usuarios.service";
+import UsuariosService from "../services/usuarios.service.js";
 
 export default class UsuariosController {
     constructor() {
         this.usuariosService = new UsuariosService();
     }
-    create = async (req, res) => {
+    
+    registrarMedico = async (req, res) => {
         try {
+            const {
+                documento,
+                apellido,
+                nombres,
+                email,
+                contrasenia,
+                foto_path
+            } = req.dto;
+            const {
+                id_especialidad,
+                matricula,
+                descripcion,
+                valor_consulta
+            } = req.dto;
 
-            const id = await this.usuariosService.addUsuarios(req.dto);
+            const datosUsuario = {
+                documento,
+                apellido,
+                nombres,
+                email,
+                contrasenia,
+                foto_path,
+                rol: 1
+            };
+            const datosMedico = {
+                id_especialidad,
+                matricula,
+                descripcion,
+                valor_consulta
+            };
+
+            const resultado = await this.usuariosService.addUsuariosMedico(datosUsuario, datosMedico);
 
             return res.status(201).json({
                 exito: true,
-                mensaje: "Usuario creado con éxito",
-                datos: {
-                    id
-                }
+                mensaje: "Médico registrado con éxito en el sistema",
+                datos: resultado
             });
         } catch (error) {
-            console.error(`Error en create: ${error.message}`);
             return res.status(500).json({
                 exito: false,
-                mensaje: "Error al crear el Usuario",
-                error: error.message
+                mensaje: error.message
             });
         }
-    };
+    }
+
+    registrarPaciente = async (req, res) => {
+        try {
+            const {
+                documento,
+                apellido,
+                nombres,
+                email,
+                contrasenia,
+                foto_path
+            } = req.dto;
+            const {
+                id_obra_social
+            } = req.dto;
+
+            const datosUsuario = {
+                documento,
+                apellido,
+                nombres,
+                email,
+                contrasenia,
+                foto_path,
+                rol: 2
+            };
+            const datosPaciente = {
+                id_obra_social
+            };
+
+            const resultado = await this.usuariosService.addUsuariosPaciente(datosUsuario, datosPaciente);
+
+            return res.status(201).json({
+                exito: true,
+                mensaje: "Paciente registrado con éxito en el sistema",
+                datos: resultado
+            });
+        } catch (error) {
+            return res.status(500).json({
+                exito: false,
+                mensaje: error.message
+            });
+        }
+    }
 
     usuarioPorID = async (req, res) => {
         const {

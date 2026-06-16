@@ -11,7 +11,7 @@ const usuariosRouter = Router();
 const transformarDTO = new TransformarDTO();
 const usuariosControlador = new UsuariosController();
 
-router.put('/:id_usuario',
+usuariosRouter.put('/:id_usuario',
     upload.single('foto'),
     transformarDTO.usuariosActualizarDTO,
     usuariosControlador.usuarioActualizar

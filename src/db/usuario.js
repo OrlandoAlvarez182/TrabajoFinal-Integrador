@@ -23,24 +23,83 @@ export default class Usuario {
         return result[0] || null;
     }
 
-    insertar = async (datos) => {
-        const sql = `INSERT INTO usuarios (documento, apellido, nombres, email, contrasenia, foto_path, rol, activo) 
-                     VALUES (?, ?, ?, ?, SHA2(?, 256), ?, ?, 1);`;
+    insertarMedico = async (datosUsuario, datosMedico) => {
+        const conexion = await pool.getConnection();
 
-        const [result] = await pool.execute(sql, [
-            datos.documento,
-            datos.apellido,
-            datos.nombres,
-            datos.email,
-            datos.contrasenia,
-            datos.foto_path,
-            datos.rol
-        ]);
+        try {
+            await conexion.beginTransaction();
 
-        return {
-            id_usuario: result.insertId,
-            ...datos
-        };
+            const sqlUsuario = `INSERT INTO usuarios (documento, apellido, nombres, email, contrasenia, foto_path, rol) 
+                            VALUES (?, ?, ?, ?, SHA2(?, 256), ?, 1);`;
+            const [resultUsuario] = await conexion.execute(sqlUsuario, [
+                datosUsuario.documento, datosUsuario.apellido, datosUsuario.nombres, datosUsuario.email, datosUsuario.contrasenia, datosUsuario.foto_path
+            ]);
+
+            const nuevoIdUsuario = resultUsuario.insertId;
+
+            const sqlMedico = `INSERT INTO medicos (id_usuario, id_especialidad, matricula, descripcion, valor_consulta) 
+                           VALUES (?, ?, ?, ?, ?);`;
+            await conexion.execute(sqlMedico, [
+                nuevoIdUsuario, datosMedico.id_especialidad, datosMedico.matricula, datosMedico.descripcion, datosMedico.valor_consulta
+            ]);
+
+            await conexion.commit();
+            return {
+                exito: true,
+                id_usuario: nuevoIdUsuario
+            };
+
+        } catch (error) {
+            await conexion.rollback();
+            throw error;
+        } finally {
+            conexion.release();
+        }
+    }
+
+    insertarPaciente = async (datosUsuario, datosPaciente) => {
+        const conexion = await pool.getConnection();
+
+        try {
+            await conexion.beginTransaction();
+
+            const sqlUsuario = `INSERT INTO usuarios (documento, apellido, nombres, email, contrasenia, foto_path, rol, activo) 
+                                VALUES (?, ?, ?, ?, SHA2(?, 256), ?, 2, 1);`;
+
+            const [resultadoUsuario] = await conexion.execute(sqlUsuario, [
+                datosUsuario.documento,
+                datosUsuario.apellido,
+                datosUsuario.nombres,
+                datosUsuario.email,
+                datosUsuario.contrasenia,
+                datosUsuario.foto_path
+            ]);
+
+            const nuevoIdUsuario = resultadoUsuario.insertId;
+
+            const sqlPaciente = `INSERT INTO pacientes (id_usuario, id_obra_social, activo) 
+                                 VALUES (?, ?, 1);`;
+
+            await conexion.execute(sqlPaciente, [
+                nuevoIdUsuario,
+                datosPaciente.id_obra_social
+            ]);
+
+            await conexion.commit();
+
+            return {
+                id_usuario: nuevoIdUsuario,
+                ...datosUsuario,
+                ...datosPaciente
+            };
+
+        } catch (error) {
+            await conexion.rollback();
+            console.error(`Error en la transacción de insertarPaciente: ${error.message}`);
+            throw new Error(`No se pudo registrar el paciente: ${error.message}`);
+        } finally {
+            conexion.release();
+        }
     }
 
     listar = async () => {

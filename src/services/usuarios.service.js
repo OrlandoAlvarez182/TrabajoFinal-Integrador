@@ -1,4 +1,4 @@
-import Usuario from "../db/usuario";
+import Usuario from "../db/usuario.js";
 
 export default class UsuariosService {
     constructor() {
@@ -11,8 +11,13 @@ export default class UsuariosService {
         return resultado;
     }
 
-    async addUsuarios(datos) {
-        const resultado = await this.usuario.insertar(datos);
+    async addUsuariosMedico(datosUsuario, datosMedico) {
+        const resultado = await this.usuario.insertarMedico(datosUsuario, datosMedico);
+        return resultado;
+    }
+
+    async addUsuariosPaciente(datosUsuario, datosPaciente) {
+        const resultado = await this.usuario.insertarPaciente(datosUsuario, datosPaciente);
         return resultado;
     }
 

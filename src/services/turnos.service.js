@@ -5,9 +5,13 @@ export default class TurnosServicio {
         this.turnosModel = new Turnos();
     }
 
-    // 🚀 Corregido: Ahora llama al método real de la DB "obtenerTodosLosTurnos"
+    crearTurno = async (turno) => {
+        const creado = await this.turnosModel.crearTurno(turno);
+        return creado;
+    }
+
     obtenerTodos = async () => {
-        const turnos = await this.turnosModel.obtenerTodosLosTurnos(); 
+        const turnos = await this.turnosModel.obtenerTodosLosTurnos();
         return turnos;
     }
 

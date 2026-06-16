@@ -1,8 +1,24 @@
-import { pool } from "./conexion.js";
+import {
+    pool
+} from "./conexion.js";
 
 export default class Turnos {
-    
-    // 🆕 Agregamos el método real que hace la consulta a la base de datos
+
+    crearTurno = async (turno) => {
+        const sql = `
+            INSERT INTO turnos_reservas 
+            (id_medico, id_paciente, id_obra_social, fecha_hora, activo, atendido) 
+            VALUES (?, ?, ?, ?, 1, 0)
+        `;
+        const [resultado] = await pool.query(sql, [
+            turno.id_medico,
+            turno.id_paciente,
+            turno.id_obra_social,
+            turno.fecha_hora
+        ]);
+        return resultado.insertId;
+    }
+
     obtenerTodosLosTurnos = async () => {
         // Consultamos a la tabla real "turnos_reservas"
         const sql = `SELECT * FROM turnos_reservas WHERE activo = 1`;
@@ -16,7 +32,7 @@ export default class Turnos {
             SET atendido = 1 
             WHERE id_turno_reserva = ? AND activo = 1
         `;
-        
+
         const [resultado] = await pool.query(sql, [id_turno]);
         return resultado.affectedRows > 0;
     }

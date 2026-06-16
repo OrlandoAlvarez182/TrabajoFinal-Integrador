@@ -1,4 +1,11 @@
-import { asociarObraSocialServicio } from '../services/adm.service.js';
+import asociarObraSocialServicio from '../services/adm.service.js';
+
+
+export default class AdmController {
+    constructor() {
+        this.admService = new AdmService();
+    }
+}
 
 export const asociarPacienteObraSocialController = async (req, res) => {
     const { idPaciente } = req.params;
