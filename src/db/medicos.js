@@ -31,4 +31,28 @@ export default class Medicos {
         const [rows] = await pool.query(sql, [id]);
         return rows[0];
     }
+
+    buscarturnos = async (id) => {
+        const sql = `
+                SELECT 
+                    tr.id_turno_reserva,
+                    tr.fecha_hora,
+                    tr.valor_total,
+                    tr.atentido,
+                    CONCAT(u_pac.apellido, ', ', u_pac.nombres) AS paciente_nombre,
+                    u_pac.documento AS paciente_documento
+                FROM turnos_reservas AS tr
+                INNER JOIN medicos AS m 
+                    ON tr.id_medico = m.id_medico
+                INNER JOIN pacientes AS p 
+                    ON tr.id_paciente = p.id_paciente
+                INNER JOIN usuarios AS u_pac 
+                    ON p.id_usuario = u_pac.id_usuario
+                WHERE m.id_usuario = ? 
+                AND tr.activo = 1 
+                ORDER BY tr.fecha_hora ASC;
+            `;
+        const [resultado] = await pool.query(sql, [id]);
+        return resultado;
+    }
 }

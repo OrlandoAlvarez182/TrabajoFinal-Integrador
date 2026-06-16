@@ -21,13 +21,9 @@ export default class MedicosServicio {
     asociarMedicoEspecialidades = async (id_medico, especialidades) => {
         return await this.medicosEspecialidades.relacionarConEspecialidades(id_medico, especialidades);
     }
-}
 
-const ObtenerTurnos = async (id_medico) => {
-    try {
-        const turnos = await db.buscarturnos(id_medico);
-        return turnos;
-    } catch (error) {
-        throw new error("error en el servicio al obtener turnos:" + error.mensaje);
-    }
-};
+    ObtenerTurnos = async (id_medico) => {
+        return turnos = await this.medicos.buscarturnos(id_medico);
+
+    };
+}

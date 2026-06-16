@@ -58,6 +58,8 @@ routerAdmin.post(
 )
 
 routerAdmin.patch('/pacientes/:idPaciente/obra-social',
+    verificarToken,
+    permitirRoles(3),
     validarAsociacionObraSocial,
     asociarPacienteObraSocialController
 );
