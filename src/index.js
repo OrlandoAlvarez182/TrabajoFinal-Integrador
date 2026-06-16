@@ -18,6 +18,9 @@ import especialidadesRouter from './router/especialidades.router.js';
 import turnosRoutes from './router/turnos.routes.js';
 
 import admRouter from './router/adm.routes.js';
+import pacientesRouter from "./router/pacientes.routes.js";
+
+
 
 
 const __filename = fileURLToPath(
@@ -44,6 +47,7 @@ app.use('/api/v1/especialidades', especialidadesRouter);
 app.use('/api/v1/turnos', turnosRoutes);
 app.use('/api/adm', admRouter);
 app.use('/api/v1/auth', authRouter);
+app.use("/api/v1", pacientesRouter);
 
 const PUERTO = process.env.PUERTO;
 
