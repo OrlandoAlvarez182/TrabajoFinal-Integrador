@@ -1,4 +1,6 @@
-import { pool } from "./conexion.js";
+import {
+    pool
+} from "./conexion.js";
 
 export default class ObraSocial {
 
@@ -11,7 +13,6 @@ export default class ObraSocial {
             return null;
         }
 
-        // Retornamos el primer (y único) resultado
         return os[0];
     }
 
@@ -57,6 +58,20 @@ export default class ObraSocial {
             [id]
         )
         return result
+    }
+
+    asociar = async (id_paciente, id_obra_social) => {
+        const sql = 'UPDATE pacientes SET id_obra_social = ? WHERE id_paciente = ?';
+        const [resultado] = await pool.query(sql, [idObraSocial, idPaciente]);
+
+        if (resultado.affectedRows === 0) {
+            return null;
+        }
+
+        return {
+            idPaciente,
+            idObraSocial
+        };
     }
 
 }

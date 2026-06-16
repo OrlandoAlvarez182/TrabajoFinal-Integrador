@@ -14,14 +14,12 @@ import {
 import obraSocialRouter from "./router/obra-social.routes.js";
 import medicosRoutes from './router/medicos.routes.js';
 import authRouter from "./router/auth.routes.js";
-import especialidadesRouter from './router/especialidades.router.js';
+import especialidadesRouter from './router/especialidades.routes.js';
 import turnosRoutes from './router/turnos.routes.js';
 
 import admRouter from './router/adm.routes.js';
+import usuariosRouter from './router/usuarios.routes.js';
 import pacientesRouter from "./router/pacientes.routes.js";
-
-
-
 
 const __filename = fileURLToPath(
     import.meta.url);
@@ -45,9 +43,10 @@ app.use('/api/v1/obraSociales', obraSocialRouter);
 app.use('/api/v1/medicos', medicosRoutes);
 app.use('/api/v1/especialidades', especialidadesRouter);
 app.use('/api/v1/turnos', turnosRoutes);
-app.use('/api/adm', admRouter);
+app.use('/api/v1/usuarios', usuariosRouter);
+app.use("/api/v1/pacientes", pacientesRouter);
+app.use('/api/v1/adm', admRouter);
 app.use('/api/v1/auth', authRouter);
-app.use("/api/v1", pacientesRouter);
 
 const PUERTO = process.env.PUERTO;
 

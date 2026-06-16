@@ -1,15 +1,19 @@
 // 1. Apuntamos correctamente a la carpeta db desde la carpeta services
-import Medicos from "../db/medicos.js"; 
+import Medicos from "../db/medicos.js";
 import MedicosEspecialidades from "../db/medicos-especialidades.js";
 
 export default class MedicosServicio {
     constructor() {
-        
+
         this.medicos = new Medicos();
         this.medicosEspecialidades = new MedicosEspecialidades();
     }
 
-    // 3. Este es el método intermedio que va a usar tu controlador
+    buscarPorID(id) {
+        if (!id) throw new Error('ID requerido');
+        return this.medicos.obtenerPorId(id);
+    }
+
     asociarMedicoObrasSociales = async (id_medico, obras_sociales) => {
         return await this.medicos.relacionarConObraSocial(id_medico, obras_sociales);
     }
@@ -18,4 +22,3 @@ export default class MedicosServicio {
         return await this.medicosEspecialidades.relacionarConEspecialidades(id_medico, especialidades);
     }
 }
-
