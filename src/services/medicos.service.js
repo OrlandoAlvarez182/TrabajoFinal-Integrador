@@ -23,7 +23,7 @@ export default class MedicosServicio {
     }
 
     ObtenerTurnos = async (id_medico) => {
-        return turnos = await this.medicos.buscarturnos(id_medico);
+        return await this.medicos.buscarturnos(id_medico);
 
     };
 }

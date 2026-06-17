@@ -10,6 +10,9 @@ import {
     permitirRoles
 } from '../middleware/auth.validarSession.js';
 import TransformarDTO from '../middleware/transformarDTO.js';
+import {
+    validarParamEspecialidad
+} from '../middleware/especialidadParam.validator.js';
 
 const especialidadesRouter = Router();
 
@@ -18,6 +21,14 @@ const especialidadescontrolador = new especialidadesController();
 const transformarDTO = new TransformarDTO();
 
 especialidadesRouter.get('/', especialidadescontrolador.buscarEspecialidades);
+
+especialidadesRouter.get(
+    '/:porEspecialidad',
+    verificarToken,
+    permitirRoles(2),
+    validarParamEspecialidad,
+    especialidadescontrolador.buscarMedicosPorEspecialidad
+);
 
 especialidadesRouter.get('/:id_especialidad', especialidadescontrolador.buscarIdEspecialidades)
 

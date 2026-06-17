@@ -10,7 +10,11 @@ export default class EspecialidadesService {
     }
 
     buscarPorId = (id_especialidad) => {
-        return this.especialidades.buscarPorId(id_especialidad);
+        return this.especialidades.buscarIdEspecialidades(id_especialidad);
+    }
+
+    buscarLosMedicosPorEspecialidad = (nombreEspecialidad) => {
+        return this.especialidades.buscarLosMedicosPorEspecialidad(nombreEspecialidad);
     }
 
 

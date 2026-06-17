@@ -29,7 +29,7 @@ export default class Turnos {
     marcarComoAtendido = async (id_turno) => {
         const sql = `
             UPDATE turnos_reservas 
-            SET atendido = 1 
+            SET atentido = 1 
             WHERE id_turno_reserva = ? AND activo = 1
         `;
 
