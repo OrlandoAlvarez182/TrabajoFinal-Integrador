@@ -1,9 +1,6 @@
 import express from 'express';
 // 1. Importamos el controlador usando tu nombre exacto de archivo
-import {
-    asociarMedicoObrasSociales,
-    asociarMedicoEspecialidades
-} from '../controllers/medicos.controller.js';
+
 import {
     Router
 } from 'express';
@@ -21,6 +18,7 @@ routerMedicos.post('/:id_medico/obras-sociales', permitirRoles(3), medicosContro
 
 routerMedicos.post("/:id_medico/especialidades", permitirRoles(3), medicosController.asociarMedicoEspecialidades);
 
-routerMedicos.get('/turnos/propios', validarSession, permitirRoles(1), medicosController.listarTurnosPropios);
+routerMedicos.get('/turnos/propios', verificarToken, permitirRoles(1), medicosController.listarTurnosPropios);
+
 
 export default routerMedicos;

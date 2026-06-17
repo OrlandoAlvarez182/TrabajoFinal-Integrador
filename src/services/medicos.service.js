@@ -26,4 +26,6 @@ export default class MedicosServicio {
         return turnos = await this.medicos.buscarturnos(id_medico);
 
     };
+
+
 }
