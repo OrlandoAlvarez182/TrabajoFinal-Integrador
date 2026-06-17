@@ -3,6 +3,10 @@ import TurnosController from '../controllers/turnos.controller.js';
 import {
     validarTurnoAtendido
 } from '../validators/turnos.validator.js';
+import {
+    verificarToken,
+    permitirRoles
+} from '../middleware/auth.validarSession.js';
 import TransformarDTO from '../middleware/transformarDTO.js';
 
 const router = express.Router();
@@ -11,6 +15,8 @@ const transformador = new TransformarDTO();
 const turnosController = new TurnosController();
 
 router.patch('/:id/atendido',
+    verificarToken,
+    permitirRoles(1),
     validarTurnoAtendido,
     transformador.turnoAtendidoDTO,
     turnosController.atenderTurnoController

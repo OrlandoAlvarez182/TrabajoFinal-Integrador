@@ -24,6 +24,36 @@ export default class especialidadesController {
         }
     }
 
+    buscarMedicosPorEspecialidad = async (req, res) => {
+        try {
+            const porEspecialidad = req.params.porEspecialidad;
+
+            const resultado = await this.especialidadesService.buscarLosMedicosPorEspecialidad(porEspecialidad);
+
+            if (!resultado || resultado.length === 0) {
+                return res.status(200).json({
+                    exito: true,
+                    mensaje: "No registrás medicos en esta especialidad en el sistema.",
+                    datos: []
+                });
+            }
+
+            return res.status(200).json({
+                exito: true,
+                mensaje: `Los Medicos de la especialidad ${porEspecialidad} fueron recuperados con éxito.`,
+                datos: resultado
+            });
+
+        } catch (error) {
+            console.error(`Error en especialidades por medico: ${error.message}`);
+            return res.status(500).json({
+                exito: false,
+                mensaje: "Error interno del servidor al recuperar las Especialidades.",
+                datos: error.message
+            });
+        }
+    }
+
     buscarIdEspecialidades = async (req, res) => {
         try {
             const id_especialidad = req.params.id_especialidad;
@@ -93,7 +123,7 @@ export default class especialidadesController {
             // Corregido: se usa this.especialidadesService
             const especialidadModificada = await this.especialidadesService.modificar(id_especialidad, especialidad);
 
-            
+
 
             if (especialidadModificada === null) {
                 return res.status(404).json({

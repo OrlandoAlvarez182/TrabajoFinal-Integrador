@@ -70,6 +70,7 @@ export default class MedicosController {
             }
             return res.status(200).json(turnos);
         } catch (error) {
+            console.log(error);
             return res.status(500).json({
                 mensaje: "error interno del servidor"
             });

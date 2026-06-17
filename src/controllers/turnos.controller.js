@@ -3,7 +3,7 @@ import MedicosServicio from "../services/medicos.service.js";
 import ObrasSocialesService from "../services/obra-social.service.js";
 
 export default class TurnosController {
-    constructos() {
+    constructor() {
         this.turnosService = new TurnosServicio();
         this.medicosService = new MedicosServicio();
         this.obrasSocialesService = new ObrasSocialesService();
@@ -91,7 +91,7 @@ export default class TurnosController {
 
             return res.status(200).json({
                 exito: true,
-                mensaje: `Misión cumplida: El turno N° ${id_turno_reserva} fue marcado como atendido.`,
+                mensaje: `El turno N° ${id_turno_reserva} fue marcado como atendido.`,
                 datos: null
             });
         } catch (error) {
