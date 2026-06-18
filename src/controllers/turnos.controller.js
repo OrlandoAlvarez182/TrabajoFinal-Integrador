@@ -89,7 +89,14 @@ export default class TurnosController {
                 id_turno_reserva
             } = req.dto;
 
-            await this.turnosService.atenderTurno(id_turno_reserva);
+            const modificado = await this.turnosService.atenderTurno(id_turno_reserva);
+            if(!modificado){
+                return res.status(400).json({
+                    exito: false,
+                    mensaje: "No se pudo actualizar el estado del turno.",
+                    datos: null
+                });
+            }
 
             return res.status(200).json({
                 exito: true,

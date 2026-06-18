@@ -10,6 +10,12 @@ export default class Especialidades {
         return especialidades;
     }
 
+    buscarPorNombre = async (especialidad) => {
+        const sql = 'SELECT * FROM especialidades WHERE activo = 1 AND nombre = ?';
+        const [especialidades] = await pool.execute(sql, [especialidad]);
+        return especialidades;
+    }
+
     buscarIdEspecialidades = async (id_especialidad) => {
         const sql = 'SELECT * FROM especialidades WHERE activo = 1 AND id_especialidad = ?';
         const [especialidades] = await pool.execute(sql, [id_especialidad]);
@@ -43,11 +49,8 @@ export default class Especialidades {
 
     crear = async (especialidad) => {
 
-        const {
-            nombre
-        } = especialidad;
         const sql = 'INSERT INTO especialidades (nombre) VALUES (?)';
-        const [result] = await pool.execute(sql, [nombre]);
+        const [result] = await pool.execute(sql, [especialidad]);
 
         if (result.affectedRows === 0) {
             return null;
@@ -57,10 +60,8 @@ export default class Especialidades {
     }
 
     // 👈 Movimos "modificar" para que quede ADENTRO de la clase
-    modificar = async (id_especialidad, especialidad) => {
-        const {
-            nombre
-        } = especialidad;
+    modificar = async (id_especialidad, nombre) => {
+
         const sql = 'UPDATE especialidades SET nombre = ? WHERE id_especialidad = ?';
         const [result] = await pool.execute(sql, [nombre, id_especialidad]);
 

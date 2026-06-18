@@ -3,13 +3,16 @@ info:
   title: Módulo de Médicos
   version: 1.0.0
 paths:
-  /medicos:
+  /medicos/turnos/propios:
     get:
-      summary: Obtener todos los médicos
-      tags: [Medicos]
+      summary: Obtener todos los turnos propios del médico
+      tags:
+        - Medicos
+      security:
+        - BearerAuth: []
       responses:
         200:
-          description: Lista de médicos recuperada con éxito
+          description: Lista de turnos recuperada con éxito
           content:
             application/json:
               schema:
@@ -17,88 +20,82 @@ paths:
                 properties:
                   exito:
                     type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Turnos propios recuperados con éxito"
                   datos:
                     type: array
                     items:
                       type: object
                       properties:
-                        id:
+                        id_turno_reserva:
                           type: integer
-                        nombre:
+                          example: 12
+                        fecha_hora:
                           type: string
-
-    post:
-      summary: Crear un nuevo médico (Solo Admin)
-      tags: [Medicos]
-      security:
-        - BearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - nombre
-              properties:
-                nombre:
-                  type: string
-                  example: "Mario"
-      responses:
-        201:
-          description: Médico creado correctamente
+                          example: "2026-06-25 16:00:00"
+                        paciente_nombre:
+                          type: string
+                          example: "ALFONSO, CARLOS"
+                        valor_total:
+                          type: number
+                          example: 12000.00
+                        atentido:
+                          type: integer
+                          example: 0
         401:
-          description: Token inválido o expirado
+          description: No autorizado - Token ausente o inválido
         403:
-          description: No tienes permisos suficientes (Requiere Rol 3)
+          description: Prohibido - No tenés los permisos de Médico
 
-  /medicos/{id}:
-    put:
-      summary: Actualizar un médico por ID (Solo Admin)
-      tags: [Medicos]
+  /turnos/{id}/atendido:
+    patch:
+      summary: Marcar un turno como atendido
+      tags:
+        - Medicos
       security:
         - BearerAuth: []
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
+          description: ID numérico del turno reserva que se desea atender
           schema:
             type: integer
-          description: ID del médico
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                nombre:
-                  type: string
-                  example: "MARIO MODIFICADO"
+            example: 12
       responses:
         200:
-          description: Médico actualizado con éxito
-        403:
-          description: No tienes permisos suficientes
-    
-    delete:
-      summary: Eliminar un médico por ID (Solo Admin)
-      tags: [Médicos]
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: ID del médico
-      responses:
-        200:
-          description: Médico eliminado con éxito
+          description: El turno fue marcado como atendido con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "El turno N° 12 fue marcado como atendido."
+                  datos:
+                    type: "null"
+                    example: null
+        400:
+          description: Solicitud incorrecta (ej. el turno no existe, está inactivo o ya fue atendido)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: false
+                  mensaje:
+                    type: string
+                    example: "El turno no existe, ya fue atendido o se encuentra inactivo."
         401:
-          description: Token inválido o expirado
+          description: No autorizado - Token inválido o ausente
         403:
-          description: No tienes permisos suficientes (Requiere Rol 3)
-        404:
-          description: Médico no encontrado
+          description: Prohibido - Requiere rol de Médico
+ 

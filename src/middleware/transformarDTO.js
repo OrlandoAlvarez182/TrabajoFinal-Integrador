@@ -62,13 +62,9 @@ export default class TransformarDTO {
         const {
             id
         } = req.params;
-        const {
-            observaciones
-        } = req.body;
 
         req.dto = {
-            id_turno_reserva: id ? parseInt(id, 10) : null,
-            observaciones: observaciones ? observaciones.trim() : null // 
+            id_turno_reserva: id ? parseInt(id, 10) : null
         };
 
         next();
