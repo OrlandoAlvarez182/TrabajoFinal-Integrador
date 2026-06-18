@@ -11,7 +11,7 @@ Médico (ROL = 1)
 
 Paciente (ROL = 2) 
     ● Iniciar sesión.                                       -> URL/auth/login
-    ● Crear reservas (turnos propios). 
+    ● Crear reservas (turnos propios).                      -> URL/turnos/paciente
     ● Listar turnos propios.                                -> URL/pacientes/turnosPropiosDePaciente
     ● Listar especialidades.                                -> URL/especialidades/
     ● Listar todos los médicos y de una especialidad.       -> URL/especialidades/:porEspecialidad

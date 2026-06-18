@@ -1,12 +1,14 @@
 import TurnosServicio from "../services/turnos.service.js";
 import MedicosServicio from "../services/medicos.service.js";
 import ObrasSocialesService from "../services/obra-social.service.js";
+import PacientesService from '../services/pacientes.service.js';
 
 export default class TurnosController {
     constructor() {
         this.turnosService = new TurnosServicio();
         this.medicosService = new MedicosServicio();
         this.obrasSocialesService = new ObrasSocialesService();
+        this.pacientesService = new PacientesService()
     }
 
     registrar = async (req, res) => {
@@ -121,4 +123,54 @@ export default class TurnosController {
             });
         }
     }
+
+    registrarPaciente = async (req, res) => {
+        try {
+            const { id_paciente, id_medico, id_obra_social, fecha_hora } = req.dto;
+
+            if (!id_paciente || !id_medico || !id_obra_social || !fecha_hora) {
+                return res.status(400).json({
+                    exito: false,
+                    mensaje: "Faltan datos obligatorios para registrar el turno.",
+                    datos: null
+                });
+            }
+
+            const medico = await this.medicosService.buscarPorID(id_medico);
+            const obraSocial = await this.obrasSocialesService.buscarPorID(id_obra_social);
+
+            const valorConsulta = Number(medico?.valor_consulta) || 0;
+            const descuento = Number(obraSocial?.porcentaje_descuento) || 0;
+
+            let valorTotal = valorConsulta;
+            if (parseInt(obraSocial.es_particular, 10) !== 1) {
+                valorTotal -= (descuento * valorConsulta / 100);
+                }
+
+            const nuevoTurno = {
+                id_medico,
+                id_paciente, 
+                id_obra_social,
+                fecha_hora,
+                valor_total: valorTotal.toFixed(2),
+                atentido: 0
+            };
+
+            const resultado = await this.turnosService.crearTurno(nuevoTurno);
+
+            return res.status(201).json({
+                exito: true,
+                mensaje: "Turno registrado y reservado con éxito",
+                datos: resultado
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                exito: false,
+                mensaje: "Error interno del servidor al registrar el turno",
+                error: error.message
+            });
+        }
+    }
+
 }

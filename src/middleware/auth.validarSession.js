@@ -20,7 +20,7 @@ export const verificarToken = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'clave_secreta_uner_2026');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_uner_2026');
         req.usuario = decoded;
         next();
     } catch (error) {

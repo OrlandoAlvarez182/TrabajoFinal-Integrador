@@ -7,14 +7,15 @@ export default class Turnos {
     crearTurno = async (turno) => {
         const sql = `
             INSERT INTO turnos_reservas 
-            (id_medico, id_paciente, id_obra_social, fecha_hora, activo, atendido) 
-            VALUES (?, ?, ?, ?, 1, 0)
+            (id_medico, id_paciente, id_obra_social, fecha_hora, valor_total, activo, atentido) 
+            VALUES (?, ?, ?, ?, ?, 1, 0)
         `;
         const [resultado] = await pool.query(sql, [
             turno.id_medico,
             turno.id_paciente,
             turno.id_obra_social,
-            turno.fecha_hora
+            turno.fecha_hora,
+            turno.valor_total
         ]);
         return resultado.insertId;
     }
