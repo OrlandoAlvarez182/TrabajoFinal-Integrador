@@ -3,6 +3,70 @@ info:
   title: Módulo de Especialidades
   version: 1.0.0
 paths:
+  /especialidades/{porEspecialidad}:
+    get:
+      summary: Listar médicos por nombre de especialidad (Solo Rol 2)
+      tags:
+        - Especialidades
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: porEspecialidad
+          in: path
+          required: true
+          description: Nombre de la especialidad a buscar (ej. Pediatria)
+          schema:
+            type: string
+            example: "Pediatria"
+      responses:
+        200:
+          description: Médicos de la especialidad recuperados con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Médicos de la especialidad Pediatria recuperados con éxito."
+                  datos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_medico:
+                          type: integer
+                          example: 3
+                        matricula:
+                          type: integer
+                          example: 4852
+                        descripcion:
+                          type: string
+                          example: "Atención de pacientes pediátricos."
+                        valor_consulta:
+                          type: number
+                          example: 15000.00
+                        apellido:
+                          type: string
+                          example: "PÉREZ"
+                        nombres:
+                          type: string
+                          example: "JUAN CARLOS"
+                        email:
+                          type: string
+                          example: "juan.perez@correo.com"
+                        foto_path:
+                          type: string
+                          example: ""
+        400:
+          description: La especialidad enviada en la URL no es válida
+        401:
+          description: Token inválido o ausente
+        403:
+          description: Permisos insuficientes (Requiere Rol 2)
   /especialidades:
     get:
       summary: Obtener todas las especialidades
@@ -54,7 +118,7 @@ paths:
         403:
           description: No tienes permisos suficientes (Requiere Rol 3)
 
-  /especialidades/{id}:
+  /especialidades/{id_especialidad}:
     put:
       summary: Actualizar una especialidad por ID (Solo Admin)
       tags: [Especialidades]
@@ -62,11 +126,12 @@ paths:
         - BearerAuth: []
       parameters:
         - in: path
-          name: id
+          name: id_especialidad
           required: true
           schema:
             type: integer
           description: ID de la especialidad
+          example: 1
       requestBody:
         required: true
         content:
@@ -95,11 +160,12 @@ paths:
         - BearerAuth: []
       parameters:
         - in: path
-          name: id
+          name: id_especialidad
           required: true
           schema:
             type: integer
-          description: ID de la especialidad a dar de baja
+          description: ID de la especialidad a dar de baja de forma lógica
+          example: 1
       responses:
         200:
           description: Especialidad eliminada con éxito (borrado lógico)

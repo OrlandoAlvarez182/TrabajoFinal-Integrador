@@ -85,10 +85,19 @@ export default class especialidadesController {
         try {
             const {
                 nombre
-            } = req.body;
+            } = req.dto;
+
+            const especialidad = await this.especialidadesService.buscarPorNombre(nombre);
+
+            if (especialidad.length > 0) {
+                return res.status(400).json({
+                    estado: false,
+                    mensaje: 'Especialidad ya existente'
+                });
+            }
 
             // Corregido: se usa this.especialidadesService
-            const nuevaEspecialidad = await this.especialidadesService.crear(especialidad);
+            const nuevaEspecialidad = await this.especialidadesService.crear(nombre);
 
 
             if (!nuevaEspecialidad || nuevaEspecialidad.lenght === 0) {
@@ -118,10 +127,10 @@ export default class especialidadesController {
             const id_especialidad = req.params.id_especialidad;
             const {
                 nombre
-            } = req.body;
+            } = req.dto;
 
             // Corregido: se usa this.especialidadesService
-            const especialidadModificada = await this.especialidadesService.modificar(id_especialidad, especialidad);
+            const especialidadModificada = await this.especialidadesService.modificar(id_especialidad, nombre);
 
 
 
@@ -149,7 +158,15 @@ export default class especialidadesController {
         try {
             const id_especialidad = req.params.id_especialidad;
 
-            const especialidadEliminada = await this.especialidades.eliminar(id_especialidad);
+            const existe = await this.especialidadesService.buscarPorId(id_especialidad);
+            if (existe.length === 0) {
+                return res.status(404).json({
+                    estado: false,
+                    mensaje: "Especialidad no encontrada",
+                });
+            }
+
+            const especialidadEliminada = await this.especialidadesService.eliminar(id_especialidad);
 
             if (especialidadEliminada === null) {
                 return res.status(404).json({

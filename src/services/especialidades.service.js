@@ -9,6 +9,10 @@ export default class EspecialidadesService {
         return this.especialidades.buscarEspecialidades();
     }
 
+    buscarPorNombre = (nombre) => {
+        return this.especialidades.buscarPorNombre(nombre);
+    }
+
     buscarPorId = (id_especialidad) => {
         return this.especialidades.buscarIdEspecialidades(id_especialidad);
     }
@@ -31,10 +35,6 @@ export default class EspecialidadesService {
 
 
     eliminar = async (id_especialidad) => {
-        const existe = await this.especialidades.buscarPorId(id_especialidad);
-        if (existe.length === 0) {
-            return null;
-        }
         return this.especialidades.eliminar(id_especialidad);
     }
 }

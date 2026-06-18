@@ -1,0 +1,112 @@
+openapi: 3.0.0
+info:
+  title: Módulo de Médicos
+  version: 1.0.0
+paths:
+  /turnos/paciente:
+    post:
+      summary: Crear reserva de turno propio (Solo Rol 2)
+      tags:
+        - Pacientes
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id_medico
+                - id_paciente
+                - id_obra_social
+                - fecha_hora
+              properties:
+                id_medico:
+                  type: integer
+                  example: 3
+                id_paciente:
+                  type: integer
+                  example: 1
+                id_obra_social:
+                  type: integer
+                  example: 2
+                fecha_hora:
+                  type: string
+                  format: date-time
+                  example: "2026-06-25 10:30:00"
+      responses:
+        201:
+          description: Reserva de turno creada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Turno reservado correctamente"
+                  datos:
+                    type: object
+                    properties:
+                      id_turno_reserva:
+                        type: integer
+                        example: 145
+        400:
+          description: Error de validación en los datos enviados
+        401:
+          description: No autorizado - Token ausente o inválido
+        403:
+          description: Prohibido - Requiere rol de Paciente (Rol 2)
+
+  /pacientes/turnosPropiosDePaciente:
+    get:
+      summary: Listar turnos propios del Paciente (Solo Rol 2)
+      tags:
+        - Pacientes
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Lista de turnos del paciente recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Tus turnos fueron recuperados con éxito."
+                  datos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id_turno_reserva:
+                          type: integer
+                          example: 45
+                        fecha_hora:
+                          type: string
+                          example: "2026-06-25 10:30:00"
+                        valor_total:
+                          type: number
+                          example: 15000.00
+                        atentido:
+                          type: integer
+                          example: 0
+                        medico_nombre:
+                          type: string
+                          example: "PÉREZ, JUAN CARLOS"
+                        especialidad:
+                          type: string
+                          example: "Pediatria"
+        401:
+          description: Token ausente o inválido
+        403:
+          description: Permisos insuficientes (Requiere Rol 2)
