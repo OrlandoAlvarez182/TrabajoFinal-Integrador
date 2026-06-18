@@ -43,7 +43,7 @@ export default class MedicosController {
 
 
         try {
-            await medicosServicio.asociarMedicoEspecialidades(id_medico, especialidades);
+            await this.medicosServicio.asociarMedicoEspecialidades(id_medico, especialidades);
             res.status(201).json({
                 exito: true,
                 mensaje: "Especialidades asociadas correctamente.",
@@ -70,6 +70,7 @@ export default class MedicosController {
             }
             return res.status(200).json(turnos);
         } catch (error) {
+            console.log(error);
             return res.status(500).json({
                 mensaje: "error interno del servidor"
             });

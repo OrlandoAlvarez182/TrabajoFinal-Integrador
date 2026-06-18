@@ -1,6 +1,3 @@
-import express from 'express';
-// 1. Importamos el controlador usando tu nombre exacto de archivo
-
 import {
     Router
 } from 'express';
@@ -14,11 +11,10 @@ const routerMedicos = Router();
 
 const medicosController = new MedicosController();
 
-routerMedicos.post('/:id_medico/obras-sociales', permitirRoles(3), medicosController.asociarMedicoObrasSociales);
+routerMedicos.post('/:id_medico/obras-sociales', verificarToken, permitirRoles(3), medicosController.asociarMedicoObrasSociales);
 
-routerMedicos.post("/:id_medico/especialidades", permitirRoles(3), medicosController.asociarMedicoEspecialidades);
+routerMedicos.post("/:id_medico/especialidades", verificarToken, permitirRoles(3), medicosController.asociarMedicoEspecialidades);
 
 routerMedicos.get('/turnos/propios', verificarToken, permitirRoles(1), medicosController.listarTurnosPropios);
-
 
 export default routerMedicos;

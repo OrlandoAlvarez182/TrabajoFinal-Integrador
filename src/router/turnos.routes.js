@@ -12,6 +12,8 @@ const transformador = new TransformarDTO();
 const turnosController = new TurnosController();
 
 router.patch('/:id/atendido',
+    verificarToken,
+    permitirRoles(1),
     validarTurnoAtendido,
     transformador.turnoAtendidoDTO,
     turnosController.atenderTurnoController
