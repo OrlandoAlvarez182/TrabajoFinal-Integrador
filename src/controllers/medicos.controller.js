@@ -14,6 +14,8 @@ export default class MedicosController {
             obras_sociales
         } = req.body;
 
+        console.log(obras_sociales);
+
         try {
             const resultado = await this.medicosServicio.asociarMedicoObrasSociales(id_medico, obras_sociales);
 
@@ -40,6 +42,8 @@ export default class MedicosController {
         const {
             especialidades
         } = req.body;
+
+        if (!especialidades || especialidades.length === 0) return true;
 
 
         try {

@@ -62,15 +62,15 @@ export default class ObraSocial {
 
     asociar = async (id_paciente, id_obra_social) => {
         const sql = 'UPDATE pacientes SET id_obra_social = ? WHERE id_paciente = ?';
-        const [resultado] = await pool.query(sql, [idObraSocial, idPaciente]);
+        const [resultado] = await pool.query(sql, [id_obra_social, id_paciente]);
 
         if (resultado.affectedRows === 0) {
             return null;
         }
 
         return {
-            idPaciente,
-            idObraSocial
+            id_paciente,
+            id_obra_social
         };
     }
 

@@ -1,7 +1,5 @@
 import express from 'express';
-import {
-    asociarPacienteObraSocialController
-} from '../controllers/adm.controller.js';
+import AdmController from '../controllers/adm.controller.js';
 import {
     validarAsociacionObraSocial
 } from '../validators/adm.validator.js';
@@ -29,6 +27,8 @@ const transformarDTO = new TransformarDTO();
 const usuariosControlador = new UsuariosController();
 
 const turnosController = new TurnosController();
+
+const admController = new AdmController();
 
 routerAdmin.post(
     '/registrarMedico',
@@ -61,7 +61,7 @@ routerAdmin.patch('/pacientes/:idPaciente/obra-social',
     verificarToken,
     permitirRoles(3),
     validarAsociacionObraSocial,
-    asociarPacienteObraSocialController
+    admController.asociarPacienteObraSocialController
 );
 
 export default routerAdmin;
