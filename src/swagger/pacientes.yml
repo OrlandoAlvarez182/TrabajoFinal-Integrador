@@ -110,3 +110,51 @@ paths:
           description: Token ausente o inválido
         403:
           description: Permisos insuficientes (Requiere Rol 2)
+  /adm/pacientes/{idPaciente}/obra-social:
+    patch:
+      summary: Asociar la Obra Social de un Paciente (Solo Admin - Rol 3)
+      tags:
+        - Administrador
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: idPaciente
+          required: true
+          schema:
+            type: integer
+          description: ID del paciente al que se le Asociará la obra social
+          example: 10
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - obra_social_id
+              properties:
+                obra_social_id:
+                  type: integer
+                  description: ID de la obra social a asignar
+                  example: 5
+      responses:
+        200:
+          description: Obra social Asociada con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Obra social vinculada al paciente con éxito."
+        400:
+          description: No se pudo Asociar la obra social (el paciente no existe o está inactivo).
+        401:
+          description: Token inválido o ausente
+        403:
+          description: Permisos insuficientes (Requiere Administrador - Rol 3)

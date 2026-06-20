@@ -98,4 +98,105 @@ paths:
           description: No autorizado - Token inválido o ausente
         403:
           description: Prohibido - Requiere rol de Médico
- 
+
+  /medicos/{id_medico}/especialidades:
+    post:
+      summary: Asociar especialidad a un médico (Solo Admin - Rol 3)
+      tags:
+        - Administrador
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id_medico
+          required: true
+          schema:
+            type: integer
+          description: ID del médico a actualizar
+          example: 3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - especialidades
+              properties:
+                especialidades:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id_especialidad
+                    properties:
+                      id_especialidad:
+                        type: integer
+                        example: 2
+      responses:
+        201:
+          description: Especialidades asociadas correctamente.
+        401:
+          description: Token inválido
+        403:
+          description: Requiere permisos de Administrador
+
+  /medicos/{id_medico}/obras-sociales:
+    post:
+      summary: Asociar una o más Obras Sociales a un médico (Solo Admin - Rol 3)
+      tags:
+        - Administrador
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id_medico
+          required: true
+          schema:
+            type: integer
+          description: ID del médico al que se le asignarán las obras sociales
+          example: 3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - obras_sociales
+              properties:
+                obras_sociales:
+                  type: array
+                  description: Listado de objetos con los IDs de las obras sociales a vincular
+                  items:
+                    type: object
+                    required:
+                      - id_obra_social
+                    properties:
+                      id_obra_social:
+                        type: integer
+                        example:
+                          - id_obra_social: 17
+                          - id_obra_social: 18
+                          - id_obra_social: 22
+      responses:
+        201:
+          description: Obras sociales asociadas correctamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Obras sociales asociadas correctamente."
+                  datos:
+                    type: "null"
+                    example: null
+        401:
+          description: Token inválido o ausente
+        403:
+          description: Permisos insuficientes (Requiere Administrador - Rol 3)
