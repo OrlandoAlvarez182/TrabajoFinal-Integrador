@@ -15,9 +15,6 @@ export default class AdmController {
             obra_social_id
         } = req.body;
 
-        console.log(idPaciente);
-        console.log(obra_social_id);
-
         try {
             const resultado = await this.admService.asociarObraSocialServicio(idPaciente, obra_social_id);
 

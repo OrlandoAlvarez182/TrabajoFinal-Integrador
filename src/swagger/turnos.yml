@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: Módulo de Especialidades
+  version: 1.0.0
+paths:
+  /adm/registrarTurno:
+    post:
+      summary: Registrar un nuevo turno para un paciente (Solo Admin - Rol 3)
+      tags:
+        - Administrador
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id_medico
+                - id_paciente
+                - id_obra_social
+                - fecha_hora
+              properties:
+                id_medico:
+                  type: integer
+                  description: ID del médico que atenderá el turno
+                  example: 3
+                id_paciente:
+                  type: integer
+                  description: ID del paciente que solicita el turno
+                  example: 12
+                id_obra_social:
+                  type: integer
+                  description: ID de la obra social con la que se cubre la consulta
+                  example: 5
+                fecha_hora:
+                  type: string
+                  description: Fecha y hora del turno en formato string (ej. YYYY-MM-DD HH:mm)
+                  example: "2026-07-15 09:30:00"
+      responses:
+        201:
+          description: Turno registrado con éxito en el sistema.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: true
+                  mensaje:
+                    type: string
+                    example: "Turno registrado correctamente para el paciente."
+                  datos:
+                    type: object
+                    properties:
+                      id_turno:
+                        type: integer
+                        example: 104
+                      id_medico:
+                        type: integer
+                        example: 3
+                      id_paciente:
+                        type: integer
+                        example: 12
+                      fecha_hora:
+                        type: string
+                        example: "2026-07-15 09:30:00"
+        400:
+          description: Datos inválidos enviados en el cuerpo (Falla en validarTurno o DTO)
+        401:
+          description: Token inválido o no provisto
+        403:
+          description: Permisos insuficientes (Requiere Administrador - Rol 3)
+        500:
+          description: Error interno al procesar el registro del turno
