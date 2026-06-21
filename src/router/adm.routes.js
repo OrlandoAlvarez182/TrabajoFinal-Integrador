@@ -52,8 +52,8 @@ routerAdmin.post(
     '/registrarTurno',
     verificarToken,
     permitirRoles(3),
-    validarTurno,
     transformarDTO.turnosCrearDTO,
+    validarTurno,
     turnosController.registrar
 )
 

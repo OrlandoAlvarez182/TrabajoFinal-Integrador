@@ -158,3 +158,37 @@ paths:
           description: Token inválido o ausente
         403:
           description: Permisos insuficientes (Requiere Administrador - Rol 3)
+
+  /pacientes/informe/turnos-paciente:
+    get:
+      summary: Obtener informe estadístico de turnos por paciente en formato PDF (Solo Admin - Rol 3)
+      tags:
+        - Pacientes
+        - Administrador
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Archivo PDF generado correctamente con las estadísticas de atenciones.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        401:
+          description: Token inválido o ausente.
+        403:
+          description: Permisos insuficientes (Requiere Rol 3).
+        500:
+          description: Error interno al generar el reporte PDF.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exito:
+                    type: boolean
+                    example: false
+                  mensaje:
+                    type: string
+                    example: "Error al renderizar el informe con la librería de PDF."

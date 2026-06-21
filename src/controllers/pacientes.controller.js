@@ -15,6 +15,9 @@ export default class PacientesController {
             const pdf = await this.informeServicio.reporteTurnosPorPaciente(datos);
 
             res.setHeader("Content-Type", "application/pdf");
+            res.setHeader("Content-Disposition", "attachment; filename=reporte-turnos.pdf");
+            res.setHeader("Content-Length", pdf.length);
+
             res.send(pdf);
         } catch (error) {
             res.status(500).json({

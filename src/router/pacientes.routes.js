@@ -16,6 +16,11 @@ router.get(
     pacientesController.listarTurnosPropiosDePacienteController
 );
 
-router.get("/informe/turnos-paciente", pacientesController.obtenerInformeTurnosPorPaciente);
+router.get(
+    "/informe/turnos-paciente",
+    verificarToken,
+    permitirRoles(3),
+    pacientesController.obtenerInformeTurnosPorPaciente
+);
 
 export default router;
