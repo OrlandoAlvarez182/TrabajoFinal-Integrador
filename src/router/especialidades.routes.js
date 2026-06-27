@@ -20,7 +20,11 @@ const especialidadescontrolador = new especialidadesController();
 
 const transformarDTO = new TransformarDTO();
 
-especialidadesRouter.get('/', especialidadescontrolador.buscarEspecialidades);
+especialidadesRouter.get('/',
+    verificarToken,
+    permitirRoles(2, 3),
+    especialidadescontrolador.buscarEspecialidades
+);
 
 especialidadesRouter.get(
     '/:porEspecialidad',
@@ -30,7 +34,11 @@ especialidadesRouter.get(
     especialidadescontrolador.buscarMedicosPorEspecialidad
 );
 
-especialidadesRouter.get('/:id_especialidad', especialidadescontrolador.buscarIdEspecialidades)
+especialidadesRouter.get('/:id_especialidad',
+    verificarToken,
+    permitirRoles(2, 3),
+    especialidadescontrolador.buscarIdEspecialidades
+);
 
 especialidadesRouter.post('/',
     validarEspecialidades,

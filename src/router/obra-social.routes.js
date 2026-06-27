@@ -16,33 +16,41 @@ const transformarDTO = new TransformarDTO();
 
 const OScontroller = new ObraSocialController();
 
-obraSocialRouter.get('/', OScontroller.obtenerTodas);
-obraSocialRouter.get('/:id', OScontroller.obraSocialPorID);
+obraSocialRouter.get('/',
+    verificarToken,
+    permitirRoles(3),
+    OScontroller.obtenerTodas
+);
+
+obraSocialRouter.get('/:id',
+    verificarToken,
+    permitirRoles(3),
+    OScontroller.obraSocialPorID
+);
 
 obraSocialRouter.post(
     '/',
     verificarToken,
     permitirRoles(3),
-    validarObraSocial,
     transformarDTO.obrasSocialesCrearDTO,
+    validarObraSocial,
     OScontroller.create
 );
 
 obraSocialRouter.put(
-    '/:id', 
-    validarObraSocial, 
-    verificarToken, 
-    permitirRoles(3), 
-    transformarDTO.obrasSocialesActualizarDTO, 
+    '/:id',
+    verificarToken,
+    permitirRoles(3),
+    transformarDTO.obrasSocialesActualizarDTO,
+    validarObraSocial,
     OScontroller.obraSocialActualizar
 );
 
 obraSocialRouter.delete(
-    '/:id', 
-    verificarToken, 
-    permitirRoles(3), 
+    '/:id',
+    verificarToken,
+    permitirRoles(3),
     OScontroller.borrarObraSocial
 );
-
 
 export default obraSocialRouter;

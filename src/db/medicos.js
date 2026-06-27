@@ -11,9 +11,13 @@ export default class Medicos {
         try {
             await conexion.beginTransaction();
 
-            for (const os of obras_sociales) {
-                const sql = "INSERT INTO medicos_obras_sociales (id_medico, id_obra_social) VALUES (?, ?)";
-                await conexion.execute(sql, [id_medico, os.id_obra_social]);
+            for (const id_obra_social of obras_sociales) {
+                const sql = `
+                    INSERT INTO medicos_obras_sociales (id_medico, id_obra_social, activo) 
+                    VALUES (?, ?, 1)
+                    ON DUPLICATE KEY UPDATE activo = 1
+                `;
+                await conexion.execute(sql, [id_medico, id_obra_social]);
             }
 
             await conexion.commit();
@@ -55,4 +59,15 @@ export default class Medicos {
         const [resultado] = await pool.query(sql, [id]);
         return resultado;
     }
+
+    actualizarEspecialidad = async (id_medico, id_especialidad) => {
+        const sql = `
+            UPDATE medicos 
+            SET id_especialidad = ? 
+            WHERE id_medico = ? AND activo = 1;
+        `;
+
+        const [resultado] = await pool.execute(sql, [id_especialidad, id_medico]);
+        return resultado.affectedRows > 0;
+    };
 }

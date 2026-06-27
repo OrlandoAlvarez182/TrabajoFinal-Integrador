@@ -5,7 +5,7 @@ export default class MedicosController {
         this.medicosServicio = new MedicosServicio();
     }
 
-    asociarMedicoObrasSociales = async (req, res) => {
+    asociarMedicoAObrasSociales = async (req, res) => {
         const {
             id_medico
         } = req.params;
@@ -14,10 +14,22 @@ export default class MedicosController {
             obras_sociales
         } = req.body;
 
-        console.log(obras_sociales);
+        if (!obras_sociales || !Array.isArray(obras_sociales) || obras_sociales.length === 0) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: "Se requiere un arreglo 'obras_sociales' válido con los IDs a asociar."
+            });
+        }
 
         try {
-            const resultado = await this.medicosServicio.asociarMedicoObrasSociales(id_medico, obras_sociales);
+            const resultado = await this.medicosServicio.asociarMedicoAObrasSociales(id_medico, obras_sociales);
+
+            if (!resultado) {
+                return res.status(404).json({
+                    exito: false,
+                    mensaje: "No se pudieron asociar las obras sociales."
+                });
+            }
 
             if (resultado) {
                 return res.status(201).json({
@@ -40,23 +52,36 @@ export default class MedicosController {
             id_medico
         } = req.params;
         const {
-            especialidades
+            especialidad
         } = req.body;
 
-        if (!especialidades || especialidades.length === 0) return true;
-
+        if (!id_especialidad) {
+            return res.status(400).json({
+                exito: false,
+                mensaje: "El campo id_especialidad es obligatorio."
+            });
+        }
 
         try {
-            await this.medicosServicio.asociarMedicoEspecialidades(id_medico, especialidades);
-            res.status(201).json({
+            await this.medicosServicio.modificarEspecialidad(id_medico, especialidad);
+
+            if (!resultado) {
+                return res.status(404).json({
+                    exito: false,
+                    mensaje: "No se encontró el médico especificado o se encuentra inactivo."
+                });
+            }
+
+            res.status(200).json({
                 exito: true,
-                mensaje: "Especialidades asociadas correctamente.",
+                mensaje: "Especialidad del médico actualizada correctamente.",
                 datos: null
             });
+
         } catch (error) {
             res.status(500).json({
                 exito: false,
-                mensaje: "Error al asociar especialidades.",
+                mensaje: "Error al actualizar la especialidad del médico.",
                 datos: error.message
             });
         }
