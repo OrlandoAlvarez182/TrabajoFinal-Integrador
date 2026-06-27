@@ -7,6 +7,8 @@ paths:
     get:
       summary: Obtener todas las obras sociales
       tags: [Obras Sociales]
+      security:
+        - BearerAuth: []
       responses:
         200:
           description: Lista de obras sociales recuperada con éxito
@@ -99,7 +101,7 @@ paths:
           description: Obra social actualizada con éxito
         403:
           description: No tienes permisos suficientes
-    
+
     delete:
       summary: Eliminar una obra social por ID (Solo Admin)
       tags: [Obras Sociales]

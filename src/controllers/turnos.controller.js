@@ -131,7 +131,7 @@ export default class TurnosController {
         }
     }
 
-    registrarPaciente = async (req, res) => {
+    solicitarTurno = async (req, res) => {
         try {
             const { id_paciente, id_medico, id_obra_social, fecha_hora } = req.dto;
 

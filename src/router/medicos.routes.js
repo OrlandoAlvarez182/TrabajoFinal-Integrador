@@ -11,10 +11,25 @@ const routerMedicos = Router();
 
 const medicosController = new MedicosController();
 
-routerMedicos.post('/:id_medico/obras-sociales', verificarToken, permitirRoles(3), medicosController.asociarMedicoObrasSociales);
+routerMedicos.patch(
+    "/:id_medico/especialidad",
+    verificarToken,
+    permitirRoles(3),
+    medicosController.asociarMedicoEspecialidades
+);
 
-routerMedicos.post("/:id_medico/especialidades", verificarToken, permitirRoles(3), medicosController.asociarMedicoEspecialidades);
+routerMedicos.get(
+    '/turnos/propios',
+    verificarToken,
+    permitirRoles(1),
+    medicosController.listarTurnosPropios
+);
 
-routerMedicos.get('/turnos/propios', verificarToken, permitirRoles(1), medicosController.listarTurnosPropios);
+routerMedicos.post(
+    '/:id_medico/obras-sociales',
+    verificarToken,
+    permitirRoles(3),
+    medicosController.asociarMedicoAObrasSociales
+);
 
 export default routerMedicos;

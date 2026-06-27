@@ -106,7 +106,7 @@ export default class TransformarDTO {
 
         req.dto = {
             id_medico: id_medico ? parseInt(id_medico, 10) : null,
-            id_paciente: id_paciente ? parseInt(id_paciente, 10) : null,
+            id_paciente: req.usuario && req.usuario.rol === 2 ? req.usuario.id_usuario : (id_paciente ? parseInt(id_paciente, 10) : null),
             id_obra_social: id_obra_social ? parseInt(id_obra_social, 10) : null,
             fecha_hora: fecha_hora ? String(fecha_hora).trim() : null
         };
@@ -130,8 +130,8 @@ export default class TransformarDTO {
             nombres: nombres ? String(nombres).trim().toUpperCase() : null,
             email: email ? String(email).trim().toLowerCase() : null,
             contrasenia: contrasenia ? String(contrasenia) : null,
-            foto_path: "", 
-            rol: 2, 
+            foto_path: "",
+            rol: 2,
 
             id_obra_social: id_obra_social !== undefined ? parseInt(id_obra_social, 10) : null
         };

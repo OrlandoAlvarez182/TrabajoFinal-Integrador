@@ -14,13 +14,13 @@ export default class MedicosServicio {
         return this.medicos.obtenerPorId(id);
     }
 
-    asociarMedicoObrasSociales = async (id_medico, obras_sociales) => {
+    asociarMedicoAObrasSociales = async (id_medico, obras_sociales) => {
         return await this.medicos.relacionarConObraSocial(id_medico, obras_sociales);
     }
 
-    asociarMedicoEspecialidades = async (id_medico, especialidades) => {
-        return await this.medicosEspecialidades.relacionarConEspecialidades(id_medico, especialidades);
-    }
+    modificarEspecialidad = async (id_medico, id_especialidad) => {
+        return await this.medicos.actualizarEspecialidad(id_medico, id_especialidad);
+    };
 
     ObtenerTurnos = async (id_medico) => {
         return await this.medicos.buscarturnos(id_medico);

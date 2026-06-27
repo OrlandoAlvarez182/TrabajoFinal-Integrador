@@ -58,7 +58,7 @@ app.listen(PUERTO || 3000, () => {
 
         Rutas:
 
-        URL = localhosta:3000/api/v1
+        URL = localhost:${PUERTO || 3000}/api/v1
 
         Médico (ROL = 1) 
             ● Iniciar sesión.                                       -> URL/auth/login
@@ -69,8 +69,8 @@ app.listen(PUERTO || 3000, () => {
             ● Iniciar sesión.                                       -> URL/auth/login
             ● Crear reservas (turnos propios).                      -> URL/turnos/paciente
             ● Listar turnos propios.                                -> URL/pacientes/turnosPropiosDePaciente
-            ● Listar especialidades.                                -> URL/especialidades/
-            ● Listar todos los médicos y de una especialidad.       -> URL/especialidades/:porEspecialidad
+            ● Listar especialidades.                                -> URL/especialidad/
+            ● Listar todos los médicos y de una especialidad.       -> URL/especialidad/:porEspecialidad
 
         Administrador (ROL = 3) 
             ● Iniciar sesión.                                       -> URL/auth/login
