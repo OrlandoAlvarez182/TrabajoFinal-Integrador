@@ -1,12 +1,10 @@
 // 1. Apuntamos correctamente a la carpeta db desde la carpeta services
 import Medicos from "../db/medicos.js";
-import MedicosEspecialidades from "../db/medicos-especialidades.js";
 
 export default class MedicosServicio {
     constructor() {
 
         this.medicos = new Medicos();
-        this.medicosEspecialidades = new MedicosEspecialidades();
     }
 
     buscarPorID(id) {

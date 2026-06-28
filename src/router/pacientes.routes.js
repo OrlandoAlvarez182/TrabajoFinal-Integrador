@@ -10,14 +10,14 @@ const router = express.Router();
 const pacientesController = new PacientesController();
 
 router.get(
-    "/turnosPropiosDePaciente",
+    "/turnos",
     verificarToken,
     permitirRoles(2),
     pacientesController.listarTurnosPropiosDePacienteController
 );
 
 router.get(
-    "/informe/turnos-paciente",
+    "/informe-pacientes",
     verificarToken,
     permitirRoles(3),
     pacientesController.obtenerInformeTurnosPorPaciente

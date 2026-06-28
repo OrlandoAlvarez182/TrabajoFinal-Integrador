@@ -26,14 +26,6 @@ especialidadesRouter.get('/',
     especialidadescontrolador.buscarEspecialidades
 );
 
-especialidadesRouter.get(
-    '/:porEspecialidad',
-    verificarToken,
-    permitirRoles(2),
-    validarParamEspecialidad,
-    especialidadescontrolador.buscarMedicosPorEspecialidad
-);
-
 especialidadesRouter.get('/:id_especialidad',
     verificarToken,
     permitirRoles(2, 3),
