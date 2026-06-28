@@ -3,7 +3,7 @@ info:
   title: Módulo de Obras Sociales
   version: 1.0.0
 paths:
-  /obraSociales:
+  /obra-sociales:
     get:
       summary: Obtener todas las obras sociales
       tags: [Obras Sociales]
@@ -64,7 +64,7 @@ paths:
         403:
           description: No tienes permisos suficientes (Requiere Rol 3)
 
-  /obraSociales/{id}:
+  /obras-sociales/{id}:
     put:
       summary: Actualizar una obra social por ID (Solo Admin)
       tags: [Obras Sociales]

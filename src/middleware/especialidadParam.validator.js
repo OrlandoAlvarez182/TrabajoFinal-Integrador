@@ -4,7 +4,7 @@ import {
 } from 'express-validator';
 
 export const validarParamEspecialidad = [
-    param('porEspecialidad')
+    param('nombreEspecialidad')
     .trim()
     .notEmpty().withMessage('El nombre de la especialidad es obligatorio en la URL')
     .isAlpha('es-ES', {

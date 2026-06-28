@@ -26,9 +26,9 @@ export default class especialidadesController {
 
     buscarMedicosPorEspecialidad = async (req, res) => {
         try {
-            const porEspecialidad = req.params.porEspecialidad;
+            const nombreEspecialidad = req.params.nombreEspecialidad;
 
-            const resultado = await this.especialidadesService.buscarLosMedicosPorEspecialidad(porEspecialidad);
+            const resultado = await this.especialidadesService.buscarLosMedicosPorEspecialidad(nombreEspecialidad);
 
             if (!resultado || resultado.length === 0) {
                 return res.status(200).json({
@@ -40,7 +40,7 @@ export default class especialidadesController {
 
             return res.status(200).json({
                 exito: true,
-                mensaje: `Los Medicos de la especialidad ${porEspecialidad} fueron recuperados con éxito.`,
+                mensaje: `Los Medicos de la especialidad ${nombreEspecialidad} fueron recuperados con éxito.`,
                 datos: resultado
             });
 

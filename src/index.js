@@ -39,14 +39,14 @@ app.use(morgan('combined', {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(especificacionesSwagger));
 
-app.use('/api/v1/obraSociales', obraSocialRouter);
-app.use('/api/v1/medicos', routerMedicos);
-app.use('/api/v1/especialidades', especialidadesRouter);
-app.use('/api/v1/turnos', turnosRoutes);
-app.use('/api/v1/usuarios', usuariosRouter);
-app.use("/api/v1/pacientes", pacientesRouter);
-app.use('/api/v1/adm', admRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/usuarios', usuariosRouter);
+app.use('/api/v1/medicos', routerMedicos);
+app.use("/api/v1/pacientes", pacientesRouter);
+app.use('/api/v1/turnos', turnosRoutes);
+app.use('/api/v1/obras-sociales', obraSocialRouter);
+app.use('/api/v1/especialidades', especialidadesRouter);
+app.use('/api/v1/adm', admRouter);
 
 const PUERTO = process.env.PUERTO;
 
