@@ -148,12 +148,12 @@ export default class UsuariosController {
     usuarioActualizar = async (req, res) => {
         try {
             const {
-                id
+                id_usuario
             } = req.params;
-            const idNumerico = parseInt(id);
-            const datosNuevos = req.dto;
-
-            if (isNaN(idNumerico) || idNumerico <= 0) {
+            const idUsuarioAModificar = parseInt(id_usuario, 10);
+            const usuarioLogueado = req.usuario;
+            
+            if (isNaN(idUsuarioAModificar) || idUsuarioAModificar <= 0) {
                 return res.status(400).json({
                     exito: false,
                     mensaje: "El ID proporcionado debe ser un número entero válido y mayor a cero",
@@ -161,6 +161,15 @@ export default class UsuariosController {
                 });
             }
 
+            if (usuarioLogueado.rol !== 3 && usuarioLogueado.id_usuario !== idUsuarioAModificar) {
+                return res.status(403).json({
+                    exito: false,
+                    mensaje: "No tienes permiso para modificar este usuario",
+                    datos: null
+                })
+            }
+            
+            const datosNuevos = req.dto;
             const UsActual = await this.usuariosService.buscarPorID(id)
             if (!UsActual) {
                 return res.status(404).json({
@@ -181,7 +190,7 @@ export default class UsuariosController {
                 activo: datosNuevos.activo ?? UsActual.activo
             };
 
-            const us = await this.usuariosService.editarUsuario(id, usFinal);
+            const us = await this.usuariosService.editarUsuario(idUsuarioAModificar, usFinal);
 
             return res.status(200).json({
                 exito: true,
