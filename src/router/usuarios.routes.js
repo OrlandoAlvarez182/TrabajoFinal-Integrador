@@ -15,6 +15,14 @@ const usuariosRouter = Router();
 const transformarDTO = new TransformarDTO();
 const usuariosControlador = new UsuariosController();
 
+usuariosRouter.post(
+    "/medico",
+    verificarToken,
+    permitirRoles(3), 
+    transformarDTO.usuariosCrearMedicoDTO, 
+    usuariosControlador.registrarMedico
+);
+
 usuariosRouter.put('/:id_usuario',
     verificarToken,
     permitirRoles(1, 2, 3),

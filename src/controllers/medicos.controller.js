@@ -47,45 +47,6 @@ export default class MedicosController {
         }
     };
 
-    asociarMedicoEspecialidades = async (req, res) => {
-        const {
-            id_medico
-        } = req.params;
-        const {
-            especialidad
-        } = req.body;
-
-        if (!id_especialidad) {
-            return res.status(400).json({
-                exito: false,
-                mensaje: "El campo id_especialidad es obligatorio."
-            });
-        }
-
-        try {
-            await this.medicosServicio.modificarEspecialidad(id_medico, especialidad);
-
-            if (!resultado) {
-                return res.status(404).json({
-                    exito: false,
-                    mensaje: "No se encontró el médico especificado o se encuentra inactivo."
-                });
-            }
-
-            res.status(200).json({
-                exito: true,
-                mensaje: "Especialidad del médico actualizada correctamente.",
-                datos: null
-            });
-
-        } catch (error) {
-            res.status(500).json({
-                exito: false,
-                mensaje: "Error al actualizar la especialidad del médico.",
-                datos: error.message
-            });
-        }
-    };
 
     listarTurnosPropios = async (req, res) => {
         try {

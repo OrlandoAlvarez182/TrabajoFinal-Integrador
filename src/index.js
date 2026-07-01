@@ -75,7 +75,6 @@ app.listen(PUERTO || 3000, () => {
         Administrador (ROL = 3) 
             ● Iniciar sesión.                                       -> URL/auth/login
             ● Listar, crear y editar especialidades.                -> En Rutas Especialidades(POST, PUT, DELETE)
-            ● Asociar médicos con especialidades.                   -> URL/medicos/:id_medico/especialidades
             ● Listar, crear y editar obras sociales.                -> En Rutas Obra Sociales(POST, PUT, DELETE)
             ● Asociar médicos con obras sociales.                   -> URL/medicos/:id_medico/obras-sociales
             ● Asociar pacientes con obras sociales.                 -> URL/adm/pacientes/:idPaciente/obra-social
