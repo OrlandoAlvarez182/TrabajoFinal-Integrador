@@ -17,12 +17,6 @@ const medicosController = new MedicosController();
 const especialidadescontrolador = new especialidadesController();
 
 
-routerMedicos.patch(
-    "/:id_medico/especialidad",
-    verificarToken,
-    permitirRoles(3),
-    medicosController.asociarMedicoEspecialidades
-);
 
 routerMedicos.get(
     '/turnos',
