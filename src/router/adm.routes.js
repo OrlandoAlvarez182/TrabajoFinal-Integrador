@@ -31,15 +31,6 @@ const turnosController = new TurnosController();
 const admController = new AdmController();
 
 routerAdmin.post(
-    '/registrarMedico',
-    verificarToken,
-    permitirRoles(3),
-    transformarDTO.medicosCrearDTO,
-    validarMedico,
-    usuariosControlador.registrarMedico
-);
-
-routerAdmin.post(
     '/registrarPaciente',
     verificarToken,
     permitirRoles(3),

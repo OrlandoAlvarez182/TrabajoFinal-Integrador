@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: Módulo de Médicos
+  version: 1.0.0
+paths:
+  /usuarios/medico:
+  post:
+    summary: Registrar un nuevo médico
+    tags:
+      - Usuarios
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - documento
+              - apellido
+              - nombres
+              - email
+              - contrasenia
+              - id_especialidad
+              - matricula
+            properties:
+              documento:
+                type: string
+                example: "12345678"
+              apellido:
+                type: string
+                example: "Pérez"
+              nombres:
+                type: string
+                example: "Juan Carlos"
+              email:
+                type: string
+                example: "juan.perez@correo.com"
+              contrasenia:
+                type: string
+                example: "password123"
+              id_especialidad:
+                type: integer
+                example: 1
+              matricula:
+                type: integer
+                example: 98765
+              descripcion:
+                type: string
+                example: "Médico especialista en atención integral."
+              valor_consulta:
+                type: number
+                format: float
+                example: 4500.50
+    responses:
+      201:
+        description: Médico registrado exitosamente
+      400:
+        description: Error en los datos enviados o usuario ya existente
+      401:
+        description: No autenticado (Falta token)
+      403:
+        description: No autorizado (No sos Admin)
