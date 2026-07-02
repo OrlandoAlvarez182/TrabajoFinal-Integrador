@@ -10,6 +10,9 @@ import {
     permitirRoles,
     verificarToken
 } from "../middleware/auth.validarSession.js";
+import {
+    validarMedico
+} from "../middleware/medico.validator.js";
 
 const usuariosRouter = Router();
 const transformarDTO = new TransformarDTO();
@@ -18,8 +21,9 @@ const usuariosControlador = new UsuariosController();
 usuariosRouter.post(
     "/medico",
     verificarToken,
-    permitirRoles(3), 
-    transformarDTO.usuariosCrearMedicoDTO, 
+    permitirRoles(3),
+    transformarDTO.medicosCrearDTO,
+    validarMedico,
     usuariosControlador.registrarMedico
 );
 

@@ -76,8 +76,8 @@ app.listen(PUERTO || 3000, () => {
             ● Iniciar sesión.                                       -> URL/auth/login
             ● Listar, crear y editar especialidades.                -> En Rutas Especialidades(POST, PUT, DELETE)
             ● Listar, crear y editar obras sociales.                -> En Rutas Obra Sociales(POST, PUT, DELETE)
-            ● Asociar médicos con obras sociales.                   -> URL/medicos/:id_medico/obras-sociales
-            ● Asociar pacientes con obras sociales.                 -> URL/adm/pacientes/:idPaciente/obra-social
+            ● Asociar médicos con obras sociales.                   -> URL/:id_medico/obras-sociales
+            ● Asociar pacientes con obras sociales.                 -> URL/pacientes/:idPaciente/obra-social
             ● Registrar un turno para un paciente, médico y fecha.  -> URL/adm/registrarTurno
             ● Obtener estadísticas de atenciones.                   -> URL/pacientes/informe/turnos-paciente
         `);
